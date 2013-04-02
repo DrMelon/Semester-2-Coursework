@@ -1,5 +1,6 @@
 package  
 {
+	import flash.events.Event;
 	/**
 	 * ...
 	 * @author J.Brown
@@ -27,7 +28,7 @@ package
 			// Any setup a subsystem needs to do is done here.
 		}
 		
-		public function Update():void
+		public function Update(e:Event = null):void
 		{
 			// Anything a subsystem does during the update loop is done here.
 		}

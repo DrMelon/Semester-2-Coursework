@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -17,6 +18,18 @@ package
 		private var imageID:String; // Image ID in the ImageManager
 		private var managerInstance:ImageManager; // Image Manager Reference
 		private var myBitmap:Bitmap = new Bitmap();
+		
+		// Physical constraints and affectors
+		public var xSpeed:Number = 0;
+		public var xAccel:Number = 0;
+		public var ySpeed:Number = 0;
+		public var yAccel:Number = 0;
+		
+		public var xMomentum:Number = 0.1;
+		public var yMomentum:Number = 0.1;
+		
+		public var maxXSpeed:Number = 1000;
+		public var maxYSpeed:Number = 1000;
 		
 		public function GameObject(_imageID:String, _managerInstance:ImageManager) 
 		{
@@ -37,22 +50,55 @@ package
 			}
 		}
 		
-		public function Update():void
+		public function Update(e:Event = null):void
 		{
 			// Activate subsystems
 			for (var i:int = 0; i < subsystems.length; i++)
 			{
 				subsystems[i].Update();
 			}			
+			
+			// Update speed and position
+			if (Math.abs(xSpeed+xAccel) < Math.abs(maxXSpeed))
+			{
+				xSpeed += xAccel;
+			}
+			if (Math.abs(ySpeed+yAccel) < Math.abs(maxYSpeed))
+			{
+				ySpeed += yAccel;
+			}
+			
+			if (xAccel == 0)
+			{
+				if(xSpeed > 0.1)
+					xSpeed -= xMomentum;
+				else if(xSpeed < 0)
+					xSpeed += xMomentum;
+			}
+			
+			if (yAccel == 0)
+			{
+				if(ySpeed > 0.1)
+					ySpeed -= xMomentum;
+				else if (ySpeed < 0)
+					ySpeed += yMomentum;
+			}
+			
+			x += xSpeed;
+			y += ySpeed;
+			
 		}
 		
 		public function Draw():void
 		{
-						// Activate subsystems
+			// Activate subsystems
 			for (var i:int = 0; i < subsystems.length; i++)
 			{
 				subsystems[i].Draw();
 			}
+			
+			
+			
 		}
 		
 		

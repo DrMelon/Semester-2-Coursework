@@ -41,15 +41,24 @@ package
 			// Load Graphics into Image Manager
 			g_ImageManager.Load();
 			
-			// Test Ground
+			// DEBUGGING: Testing Object Subsystems
 			var theGroundTile:GameObject = new GameObject("Ground.png", g_ImageManager);
 			theGroundTile.Init();
 			theGroundTile.x = 50;
 			theGroundTile.y = 150;
-			var hg:HasGravity = new HasGravity(theGroundTile);
-			theGroundTile.subsystems.push(hg);
-			
 			addChild(theGroundTile);
+			
+			
+			var hg:HasGravity = new HasGravity(theGroundTile);
+			var pc:PlatformerControl = new PlatformerControl(theGroundTile);
+			
+			theGroundTile.subsystems.push(hg);
+			theGroundTile.subsystems.push(pc);
+			
+			theGroundTile.Init();
+			
+			
+			
 			
 			gameObjects.push(theGroundTile);
 			
@@ -68,7 +77,7 @@ package
 			// Every object in master object list, update
 			for (var i:int = 0; i < gameObjects.length; i++)
 			{
-				gameObjects[i].Update();
+				gameObjects[i].Update(e);
 			}
 		}
 		
