@@ -17,7 +17,9 @@ package
 		
 		private var imageID:String; // Image ID in the ImageManager
 		private var managerInstance:ImageManager; // Image Manager Reference
-		private var myBitmap:Bitmap = new Bitmap();
+		public var myBitmap:Bitmap = new Bitmap();
+		
+		public var flipped = false;
 		
 		// Physical constraints and affectors
 		public var xSpeed:Number = 0;
@@ -25,7 +27,7 @@ package
 		public var ySpeed:Number = 0;
 		public var yAccel:Number = 0;
 		
-		public var drag:Number = 0.1; // Co-efficient of drag allows speed to reduce over time.
+		public var drag:Number = 0.4; // Co-efficient of drag allows speed to reduce over time.
 		
 		public var maxXSpeed:Number = 1000;
 		public var maxYSpeed:Number = 1000;
@@ -79,6 +81,8 @@ package
 			
 			x += xSpeed;
 			y += ySpeed;
+			
+			// Should test a "WouldCollide" thing here and include a movement function.
 			
 		}
 		

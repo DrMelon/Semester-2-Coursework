@@ -18,6 +18,9 @@ package
 		[Embed(source = "../img/Ground.png")]
 		private var gfx_Ground:Class;
 		
+		[Embed(source = "../img/Player_Run_Anim.gif")]
+		private var gfx_RunAnim:Class;
+		
 		
 		
 		
@@ -35,6 +38,10 @@ package
 			
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("Ground.png");
+			
+			bmpDat = (new gfx_RunAnim() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("RunAnim.gif");
 			
 		}
 		

@@ -34,10 +34,26 @@ package Subsystems
 		{
 			// Going Left
 			if (e.keyCode == Keyboard.LEFT && !myCollisions.isColliding)
+			{
 				parentObject.xAccel = -1.2;
+				if (parentObject.flipped == false)
+				{
+					parentObject.flipped = true;
+					parentObject.myBitmap.scaleX = -1;
+					parentObject.myBitmap.x += 16;
+				}
+			}
 			// Going Right
 			if (e.keyCode == Keyboard.RIGHT && !myCollisions.isColliding)
+			{
 				parentObject.xAccel = 1.2;
+				if (parentObject.flipped == true)
+				{
+					parentObject.flipped = false;
+					parentObject.myBitmap.scaleX = 1;
+					parentObject.myBitmap.x -= 16;
+				}
+			}
 			// Jump!
 			if (e.keyCode == Keyboard.Z) // && isColliding on ground
 			{

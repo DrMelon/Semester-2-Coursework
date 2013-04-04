@@ -53,7 +53,7 @@ package
 			
 			var shc:HasCollision = new HasCollision(theSolidTile, collisionList); // Collision should be added first.			
 			
-			var theGroundTile:GameObject = new GameObject("Ground.png", g_ImageManager);
+			var theGroundTile:GameObject = new GameObject("RunAnim.gif", g_ImageManager);
 			theGroundTile.Init();
 			theGroundTile.x = 50;
 			theGroundTile.y = 150;
