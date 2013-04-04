@@ -7,10 +7,11 @@ package Subsystems
 	 */
 	public class HasGravity extends ObjectSubsystem 
 	{
-		
-		public function HasGravity(_parent:GameObject) 
+		public var myCollisions:HasCollision;
+		public function HasGravity(_parent:GameObject, _collisions:HasCollision) 
 		{
 			super(_parent);
+			myCollisions = _collisions;
 		}
 		
 		override public function Init():void
@@ -22,10 +23,15 @@ package Subsystems
 		// DEBUG WARNING WOOP WOOP WARNING DEBUG WOOP
 		override public function Update(e:Event = null):void
 		{
+			if (myCollisions.isColliding)
+			{
+				return;
+			}
 			if (parentObject.y > 215)
 			{
 				parentObject.yAccel = 0;
 				parentObject.y = 215
+				
 				//parentObject.ySpeed = 0;
 			}
 			else

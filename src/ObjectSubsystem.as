@@ -16,11 +16,12 @@ package
 		// Opening up the possibilities of procedurally generated behaviours or properties.
 		
 		// Every subsystem knows who its parent is.
-		public static var parentObject:GameObject;
+		public var parentObject:GameObject;
 		
 		public function ObjectSubsystem(_parent:GameObject ) 
 		{
 			parentObject = _parent;
+			parentObject.subsystems.push(this); // Add to Parent
 		}
 		
 		public function Init():void

@@ -25,8 +25,7 @@ package
 		public var ySpeed:Number = 0;
 		public var yAccel:Number = 0;
 		
-		public var xMomentum:Number = 0.1;
-		public var yMomentum:Number = 0.1;
+		public var drag:Number = 0.1; // Co-efficient of drag allows speed to reduce over time.
 		
 		public var maxXSpeed:Number = 1000;
 		public var maxYSpeed:Number = 1000;
@@ -50,7 +49,7 @@ package
 			}
 		}
 		
-		public function Update(e:Event = null):void
+		public function Update(e:Event = null):void 
 		{
 			// Activate subsystems
 			for (var i:int = 0; i < subsystems.length; i++)
@@ -70,18 +69,12 @@ package
 			
 			if (xAccel == 0)
 			{
-				if(xSpeed > 0.1)
-					xSpeed -= xMomentum;
-				else if(xSpeed < 0)
-					xSpeed += xMomentum;
+				xSpeed -= drag * xSpeed;
 			}
 			
 			if (yAccel == 0)
 			{
-				if(ySpeed > 0.1)
-					ySpeed -= xMomentum;
-				else if (ySpeed < 0)
-					ySpeed += yMomentum;
+				ySpeed -=drag * ySpeed;
 			}
 			
 			x += xSpeed;

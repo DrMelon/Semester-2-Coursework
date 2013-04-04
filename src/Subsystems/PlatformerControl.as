@@ -13,12 +13,13 @@ package Subsystems
 		// Allows the player to push keys and make the object move around the screen.
 		
 		
-		// NOTE TO SELF: For proper platforming control, this must be given a reference to a CollisionManager!
+		public var myCollisions:HasCollision;
 		
 		
-		public function PlatformerControl(_parent:GameObject) 
+		public function PlatformerControl(_parent:GameObject, _collisions:HasCollision) 
 		{
 			super(_parent);
+			myCollisions = _collisions;
 		}
 		
 		override public function Init():void
@@ -32,13 +33,13 @@ package Subsystems
 		override public function onKeyDown(e:KeyboardEvent):void
 		{
 			// Going Left
-			if (e.keyCode == Keyboard.LEFT)
+			if (e.keyCode == Keyboard.LEFT && !myCollisions.isColliding)
 				parentObject.xAccel = -1.2;
 			// Going Right
-			if (e.keyCode == Keyboard.RIGHT)
+			if (e.keyCode == Keyboard.RIGHT && !myCollisions.isColliding)
 				parentObject.xAccel = 1.2;
 			// Jump!
-			if (e.keyCode == Keyboard.Z)
+			if (e.keyCode == Keyboard.Z) // && isColliding on ground
 			{
 				parentObject.ySpeed -= 15;
 			}

@@ -20,6 +20,9 @@ package
 		
 		// List of game objects
 		private var gameObjects:Array = new Array();
+		
+		// List of collisions
+		private var collisionList:Array = new Array();
 
 		
 		public function Main():void 
@@ -42,25 +45,29 @@ package
 			g_ImageManager.Load();
 			
 			// DEBUGGING: Testing Object Subsystems
+			var theSolidTile:GameObject = new GameObject("Ground.png", g_ImageManager);
+			theSolidTile.Init();
+			theSolidTile.x = 150;
+			theSolidTile.y = 50;
+			addChild(theSolidTile);
+			
+			var shc:HasCollision = new HasCollision(theSolidTile, collisionList); // Collision should be added first.			
+			
 			var theGroundTile:GameObject = new GameObject("Ground.png", g_ImageManager);
 			theGroundTile.Init();
 			theGroundTile.x = 50;
 			theGroundTile.y = 150;
 			addChild(theGroundTile);
 			
+			var hc:HasCollision = new HasCollision(theGroundTile, collisionList); // Collision should be added first.
+			var hg:HasGravity = new HasGravity(theGroundTile, hc);
+			var pc:PlatformerControl = new PlatformerControl(theGroundTile, hc); // Linking to collision manager
+
+			trace(collisionList[0].parentObject);
 			
-			var hg:HasGravity = new HasGravity(theGroundTile);
-			var pc:PlatformerControl = new PlatformerControl(theGroundTile);
-			
-			theGroundTile.subsystems.push(hg);
-			theGroundTile.subsystems.push(pc);
-			
-			theGroundTile.Init();
-			
-			
-			
-			
+			gameObjects.push(theSolidTile);
 			gameObjects.push(theGroundTile);
+			theGroundTile.Init();
 			
 			// Set up HUD
 			var theHUD:HUD = new HUD();
