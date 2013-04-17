@@ -14,7 +14,7 @@ package Subsystems
 		
 		
 		public var myCollisions:HasCollision;
-		
+		public var canJump:Boolean = false;
 		
 		public function PlatformerControl(_parent:GameObject, _collisions:HasCollision) 
 		{
@@ -33,7 +33,7 @@ package Subsystems
 		override public function onKeyDown(e:KeyboardEvent):void
 		{
 			// Going Left
-			if (e.keyCode == Keyboard.LEFT && !myCollisions.isColliding)
+			if (e.keyCode == Keyboard.LEFT && !myCollisions.isCollidingLeft)
 			{
 				parentObject.xAccel = -1.2;
 				if (parentObject.flipped == false)
@@ -44,7 +44,7 @@ package Subsystems
 				}
 			}
 			// Going Right
-			if (e.keyCode == Keyboard.RIGHT && !myCollisions.isColliding)
+			if (e.keyCode == Keyboard.RIGHT && !myCollisions.isCollidingRight)
 			{
 				parentObject.xAccel = 1.2;
 				if (parentObject.flipped == true)
@@ -55,8 +55,9 @@ package Subsystems
 				}
 			}
 			// Jump!
-			if (e.keyCode == Keyboard.Z) // && isColliding on ground
+			if (e.keyCode == Keyboard.Z && canJump == true)
 			{
+				
 				parentObject.ySpeed -= 15;
 			}
 		}
@@ -69,6 +70,18 @@ package Subsystems
 			// Not going Right
 			if (e.keyCode == Keyboard.RIGHT)
 				parentObject.xAccel = 0;
+		}
+		
+		override public function Update(e:Event = null):void
+		{
+			if (myCollisions.isCollidingBottom)
+			{
+				canJump = true;
+			}
+			else
+			{
+				canJump = false;
+			}
 		}
 		
 		

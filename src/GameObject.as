@@ -19,7 +19,7 @@ package
 		private var managerInstance:ImageManager; // Image Manager Reference
 		public var myBitmap:Bitmap = new Bitmap();
 		
-		public var flipped = false;
+		public var flipped:Boolean = false;
 		
 		// Physical constraints and affectors
 		public var xSpeed:Number = 0;
@@ -58,32 +58,7 @@ package
 			{
 				subsystems[i].Update();
 			}			
-			
-			// Update speed and position
-			if (Math.abs(xSpeed+xAccel) < Math.abs(maxXSpeed))
-			{
-				xSpeed += xAccel;
-			}
-			if (Math.abs(ySpeed+yAccel) < Math.abs(maxYSpeed))
-			{
-				ySpeed += yAccel;
-			}
-			
-			if (xAccel == 0)
-			{
-				xSpeed -= drag * xSpeed;
-			}
-			
-			if (yAccel == 0)
-			{
-				ySpeed -=drag * ySpeed;
-			}
-			
-			x += xSpeed;
-			y += ySpeed;
-			
-			// Should test a "WouldCollide" thing here and include a movement function.
-			
+		
 		}
 		
 		public function Draw():void

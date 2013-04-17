@@ -17,22 +17,16 @@ package Subsystems
 		override public function Init():void
 		{
 			parentObject.yAccel = 0.98;
-			parentObject.maxYSpeed = 150;
+			parentObject.maxYSpeed = 25;
 		}
 		
-		// DEBUG WARNING WOOP WOOP WARNING DEBUG WOOP
+		
 		override public function Update(e:Event = null):void
 		{
-			if (myCollisions.isColliding)
-			{
-				return;
-			}
-			if (parentObject.y > 215)
+			if (myCollisions.isCollidingBottom)
 			{
 				parentObject.yAccel = 0;
-				parentObject.y = 215
-				
-				//parentObject.ySpeed = 0;
+				return;
 			}
 			else
 			{

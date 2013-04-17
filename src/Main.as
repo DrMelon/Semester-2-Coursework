@@ -37,6 +37,12 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 		
+			// Note to Self:
+			// For Parallax Scrolling, have a scrolling manager
+			// scrolling manager directly alters the x and y of stuff, but has a master controller object
+			// the master controller object is a gameobject and the manager reads its xspeed and stuff and offsets things by their layer.
+			
+			
 			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
@@ -45,36 +51,41 @@ package
 			g_ImageManager.Load();
 			
 			// DEBUGGING: Testing Object Subsystems
-			var theSolidTile:GameObject = new GameObject("Ground.png", g_ImageManager);
-			theSolidTile.Init();
-			theSolidTile.x = 150;
-			theSolidTile.y = 50;
-			addChild(theSolidTile);
 			
-			var shc:HasCollision = new HasCollision(theSolidTile, collisionList); // Collision should be added first.			
+			// Add some platforms
+			for (var i:int = 0; i < 320/16; i++)
+			{
+				var theSolidTile:GameObject = new GameObject("Ground.png", g_ImageManager);
+				theSolidTile.Init();
+				theSolidTile.x = i*16;
+				theSolidTile.y = 200-i*4;
+				addChild(theSolidTile);
+				var shc:HasCollision = new HasCollision(theSolidTile, collisionList, true); // Collision should be added first.	
+			}
 			
-			var theGroundTile:GameObject = new GameObject("RunAnim.gif", g_ImageManager);
-			theGroundTile.Init();
-			theGroundTile.x = 50;
-			theGroundTile.y = 150;
-			addChild(theGroundTile);
+			var thePlayer:GameObject = new GameObject("RunAnim.gif", g_ImageManager);
+			thePlayer.Init();
+			thePlayer.x = 50;
+			thePlayer.y = 150;
+			addChild(thePlayer);
 			
-			var hc:HasCollision = new HasCollision(theGroundTile, collisionList); // Collision should be added first.
-			var hg:HasGravity = new HasGravity(theGroundTile, hc);
-			var pc:PlatformerControl = new PlatformerControl(theGroundTile, hc); // Linking to collision manager
+			var hc:HasCollision = new HasCollision(thePlayer, collisionList, false); // Collision should be added first.
+			var hg:HasGravity = new HasGravity(thePlayer, hc);
+			var pc:PlatformerControl = new PlatformerControl(thePlayer, hc); // Linking to collision manager
+			var mv:MovementCollides = new MovementCollides(thePlayer, hc); 
 
 			trace(collisionList[0].parentObject);
 			
 			gameObjects.push(theSolidTile);
-			gameObjects.push(theGroundTile);
-			theGroundTile.Init();
+			gameObjects.push(thePlayer);
+			thePlayer.Init();
 			
 			// Set up HUD
 			var theHUD:HUD = new HUD();
 			addChild(theHUD);
-			theHUD.AddNewStatusBar(25, 50, 0xFF0000);
-			theHUD.AddNewStatusBar(45, 50, 0x00FF00);
-			theHUD.AddNewStatusBar(15, 50, 0x0000FF);
+			theHUD.AddNewStatusBar(50, 50, 0xFF0000);
+			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
+			theHUD.AddNewStatusBar(50, 50, 0x0000FF);
 			theHUD.Draw();
 			
 		}

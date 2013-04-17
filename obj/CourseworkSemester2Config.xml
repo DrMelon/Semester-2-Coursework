@@ -16,17 +16,29 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'04/04/2013'</value>
+      <value>'17/04/2013'</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::air</name>
+      <value>false</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::mobile</name>
+      <value>false</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::desktop</name>
+      <value>false</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>E:\University\Media Production\Coursework Semester 2\src</path-element>
-      <path-element>E:\University\Media Production\Coursework Semester 2\img</path-element>
-      <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>F:\University\Media Production\Coursework Semester 2\src</path-element>
+      <path-element>F:\University\Media Production\Coursework Semester 2\img</path-element>
+      <path-element>G:\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>E:\University\Media Production\Coursework Semester 2\src\Main.as</path-element>
+    <path-element>F:\University\Media Production\Coursework Semester 2\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
