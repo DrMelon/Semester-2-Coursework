@@ -17,7 +17,7 @@ package Subsystems
 		override public function Init():void
 		{
 			parentObject.yAccel = 0.98;
-			parentObject.maxYSpeed = 25;
+			parentObject.maxYSpeed = 10;
 		}
 		
 		

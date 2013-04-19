@@ -57,8 +57,9 @@ package Subsystems
 			// Jump!
 			if (e.keyCode == Keyboard.Z && canJump == true)
 			{
-				
-				parentObject.ySpeed -= 15;
+				canJump = false;
+				parentObject.y -= 1;
+				parentObject.ySpeed = -10;
 			}
 		}
 		
@@ -74,13 +75,10 @@ package Subsystems
 		
 		override public function Update(e:Event = null):void
 		{
+			trace(canJump);
 			if (myCollisions.isCollidingBottom)
 			{
 				canJump = true;
-			}
-			else
-			{
-				canJump = false;
 			}
 		}
 		
