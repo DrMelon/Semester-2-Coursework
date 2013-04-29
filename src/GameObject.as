@@ -15,8 +15,8 @@ package
 		
 		public var subsystems:Array = new Array(); // Collection of Subsystems (see ObjectSubsystem.as)
 		
-		private var imageID:String; // Image ID in the ImageManager
-		private var managerInstance:ImageManager; // Image Manager Reference
+		public var imageID:String; // Image ID in the ImageManager
+		public var managerInstance:ImageManager; // Image Manager Reference
 		public var myBitmap:Bitmap = new Bitmap();
 		
 		public var flipped:Boolean = false;

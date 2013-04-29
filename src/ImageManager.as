@@ -13,14 +13,16 @@ package
 		private var imageKeywords:Array = new Array();  // Used to hold the keywords that other classes can use to load images. Usually the same as the image's filename.
 		
 		// Embedding Images - Thankfully this only happens once.
-		// Note - Most of these images are spritesheets. Animated GameObjects also have a reference to an AnimationManager where all the animations
+		// Note - Most of these images will be spritesheets. Animated GameObjects also have a reference to an AnimationManager where all the animations
 		// from the spritesheets are defined. The AnimationManager manages frame timings etc.
-		[Embed(source = "../img/Ground.png")]
-		private var gfx_Ground:Class;
 		
-		[Embed(source = "../img/Player_Run_Anim.gif")]
-		private var gfx_RunAnim:Class;
 		
+		[Embed(source = "../img/Ship.png")]
+		private var gfx_Ship:Class;
+		
+		[Embed(source = "../img/MustardSplot.png")]
+		private var gfx_Mustard:Class;
+
 		
 		
 		
@@ -34,14 +36,17 @@ package
 			// Fill arrays with images and keywords.
 			var bmpDat:BitmapData;
 			
-			bmpDat = (new gfx_Ground() as Bitmap).bitmapData;
+			bmpDat = (new gfx_Ship() as Bitmap).bitmapData; // Add Image Data
 			
-			bitmapDataList.push(bmpDat);
-			imageKeywords.push("Ground.png");
+			bitmapDataList.push(bmpDat); // Put Image Data onto List
+			imageKeywords.push("Ship.png"); // Put Keyword in List
 			
-			bmpDat = (new gfx_RunAnim() as Bitmap).bitmapData;
-			bitmapDataList.push(bmpDat);
-			imageKeywords.push("RunAnim.gif");
+			bmpDat = (new gfx_Mustard() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat)
+			imageKeywords.push("MustardSplot.png");
+			
+			
+
 			
 		}
 		
