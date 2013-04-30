@@ -1,5 +1,7 @@
 package Subsystems 
 {
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	/**
 	 * ...
@@ -18,15 +20,25 @@ package Subsystems
 		
 		public var Ammo:Number; // Ammunition for this weapon
 		public var MaxAmmo:Number; // Maximum Ammo it can have
+		public var AmmoRefillTime:Number // Refill time (in seconds)
+		
+		private var RenderClip:Sprite
+		private var LastFired:Number;
 		
 		// Reference to HUD Bar to display ammo
-		//public var 
+		public var HUDRef:StatusBar;
 		
-		public function WeaponSlot(_parent:GameObject, _weapon:Weapon, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
+		public function WeaponSlot(_parent:GameObject, w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
 		{
 			super(_parent);
 			
 			doubleShot = _ds;
+			MaxAmmo = _maxammo;
+			Ammo = MaxAmmo;
+			AmmoRefillTime = _ammorefill * 60;
+			LastFired = AmmoRefillTime;
+			
+			RenderClip = w_RenderClip;
 			
 			if (doubleShot == true)
 			{
@@ -35,6 +47,11 @@ package Subsystems
 			}
 			
 			WeaponRef = _weapon;
+			HUDRef = _bar;
+			
+			
+			HUDRef.maxValue = MaxAmmo;
+			HUDRef.value = Ammo;
 			
 		}
 		
@@ -42,28 +59,47 @@ package Subsystems
 		{
 			if (Ammo > 0)
 			{
+				var fired:Boolean = false;
 				if (doubleShot)
 				{
 					WeaponRef.y = parentObject.y + positionY;
-					WeaponRef.x = parentObject.x + (parentObject.width / 2) - positionX;
-					WeaponRef.FireBullet();
-					WeaponRef.x = parentObject.x + (parentObject.width / 2) + positionX;
-					WeaponRef.FireBullet();
+					WeaponRef.x = parentObject.x + (24) - positionX;
+					WeaponRef.FireBullet(true, RenderClip);
+					WeaponRef.x = parentObject.x + (24) + positionX;
+					fired = WeaponRef.FireBullet(false, RenderClip);
 				}
 				else
 				{
 					WeaponRef.x = parentObject.x + parentObject.width / 2;
 					WeaponRef.y = parentObject.y;
-					WeaponRef.FireBullet();
+					fired = WeaponRef.FireBullet(false, RenderClip);
 				}
-				Ammo--;
+				if (fired == true)
+				{
+					Ammo--;
+					LastFired = AmmoRefillTime;
+				}
+				
 			}
 				
 		}
 		
 		override public function Update(e:Event = null):void
 		{
+			if (LastFired == 0)
+			{
+				if (Ammo < MaxAmmo)
+				{
+					Ammo++;
+				}
+			}
+			else if(LastFired > 0)
+			{
+				LastFired--;
+			}
+			HUDRef.value = Ammo;
 			WeaponRef.Update(e);
+			
 		}
 		
 	}

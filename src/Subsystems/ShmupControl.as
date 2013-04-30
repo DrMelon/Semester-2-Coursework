@@ -1,5 +1,7 @@
 package Subsystems 
 {
+	import flash.automation.StageCapture;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -12,18 +14,22 @@ package Subsystems
 		// Given that this involved keyboard control, it's a subclass of the keyboard listener.
 		// Allows the player to push keys and fly the ship around.
 		public var weaponSlots:Array = new Array;
+		public var shooting:Boolean = false;
+		private var myStage:Stage;
 		
-		public function ShmupControl(_parent:GameObject, _weaponSlots:Array) 
+		public function ShmupControl(_parent:GameObject, _weaponSlots:Array, theStage:Stage) 
 		{
 			super(_parent);
 			weaponSlots = _weaponSlots;
+			myStage = theStage;
 		}
 		
 		override public function Init():void
 		{
 			// Add event listeners
-			parentObject.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-			parentObject.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			myStage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			myStage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			
 			
 			// Set up player's movement variables
 			parentObject.maxXSpeed = 2.5;
@@ -32,6 +38,18 @@ package Subsystems
 			parentObject.drag = 0.3;
 			
 		}		
+		
+		override public function Update(e:Event = null):void
+		{
+			if (shooting == true)
+			{
+				// FIRE ALL WEAPONS
+				for (var i:int = 0; i < weaponSlots.length; i++)
+				{
+					weaponSlots[i].FireWeapon();
+				}
+			}
+		}
 		
 		override public function onKeyDown(e:KeyboardEvent):void
 		{
@@ -60,11 +78,7 @@ package Subsystems
 			// Shoot! Needs reference to weapon handler
 			if (e.keyCode == Keyboard.Z)
 			{
-				// FIRE ALL WEAPONS
-				for (var i:int = 0; i < weaponSlots.length; i++)
-				{
-					weaponSlots[i].FireWeapon();
-				}
+				shooting = true;
 			}
 		}
 		
@@ -81,7 +95,9 @@ package Subsystems
 				parentObject.yAccel = 0;
 			// Not going Down
 			if (e.keyCode == Keyboard.DOWN)
-				parentObject.yAccel = 0;				
+				parentObject.yAccel = 0;		
+			if (e.keyCode == Keyboard.Z)
+				shooting = false;
 		}		
 		
 	}

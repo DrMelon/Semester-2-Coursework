@@ -15,7 +15,7 @@ package
 		[Embed(source = "../img/TableGap.png")]
 		private var gfx_Background2:Class;
 		
-		public var scrollingSpeed:Number = 2; // This is public so that we can use turbo powerups to scroll faster.
+		public var scrollingSpeed:Number = 1; // This is public so that we can use turbo powerups to scroll faster.
 		
 		private var _background1:Bitmap;
 		private var _background2:Bitmap;

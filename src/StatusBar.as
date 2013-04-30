@@ -17,10 +17,10 @@ package
 		// The StatusBar class exists to hold information about and draw a status bar.
 		
 		
-		private var value:int;
-		private var maxValue:int;
+		public var value:int;
+		public var maxValue:int;
 		
-		private var barColour:Number;
+		public var barColour:Number;
 		
 		// Graphics in use
 		[Embed(source="../img/HUDBar_Outline.png")]
@@ -30,12 +30,6 @@ package
 		[Embed(source = "../img/HUDBar_Piece.png")] 
 		private var gfx_BarPiece:Class;
 		
-		
-		// Increaser
-		
-		// Reducer
-		
-		// Effect
 		
 		
 		
@@ -67,7 +61,10 @@ package
 		
 		public function Draw():void
 		{
-
+			// First delete all children
+			Clear();
+			
+			
 			var _outline:Bitmap = new gfx_BarOutline();		
 			var _back:Bitmap = new gfx_BarBackground();
 			
@@ -140,6 +137,15 @@ package
 		{
 			// Possibly animate bar?
 			Draw();
+		}
+		
+		public function Clear():void
+		{
+			var i:int = this.numChildren;
+			while (i--)
+			{
+				this.removeChildAt(i);
+			}
 		}
 		
 	}

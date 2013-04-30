@@ -9,7 +9,7 @@ package
 	public class HUD extends Sprite
 	{
 		// The HUD exists to hold status bars and score counters.
-		private var statusBars:Array;
+		public var statusBars:Array;
 			
 		[Embed(source = "../img/HUD_Background.png")]
 		private var gfx_Backdrop:Class;
@@ -51,6 +51,16 @@ package
 				
 				addChild(statusBars[i]);
 				statusBars[i].Draw();
+			}
+		}
+		
+		public function Update():void
+		{
+			// Update all bars
+			for (var i:int = 0; i < statusBars.length; i++)
+			{		
+				statusBars[i].Update();
+			
 			}
 		}
 		

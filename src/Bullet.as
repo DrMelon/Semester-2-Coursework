@@ -19,6 +19,7 @@ package
 		public function Bullet(_img:String, _spd:Number, _team:Number, _managerInstance:ImageManager) 
 		{
 			super(_img, _managerInstance);
+			
 			bulletSpeed = _spd;
 			bulletTeam = _team;
 			
@@ -40,7 +41,15 @@ package
 				ySpeed = bulletSpeed;
 				yAccel = bulletSpeed;
 			}
+			//Fetch info from manager
+			myBitmap.bitmapData = managerInstance.FetchBitmapDataByKeyword(imageID);
+			addChild(myBitmap);
 			
+			// Activate subsystems
+			for (var i:int = 0; i < subsystems.length; i++)
+			{
+				subsystems[i].Init();
+			}
 		}
 		
 		
