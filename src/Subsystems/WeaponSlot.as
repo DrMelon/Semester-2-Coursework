@@ -28,9 +28,9 @@ package Subsystems
 		// Reference to HUD Bar to display ammo
 		public var HUDRef:StatusBar;
 		
-		public function WeaponSlot(_parent:GameObject, w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
+		public function WeaponSlot(w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
 		{
-			super(_parent);
+			
 			
 			doubleShot = _ds;
 			MaxAmmo = _maxammo;
@@ -53,6 +53,12 @@ package Subsystems
 			HUDRef.maxValue = MaxAmmo;
 			HUDRef.value = Ammo;
 			
+		}
+		
+		public function SetOwner(_parent:GameObject):void
+		{
+			parentObject = _parent;
+			parentObject.subsystems.push(this);
 		}
 		
 		public function FireWeapon():void

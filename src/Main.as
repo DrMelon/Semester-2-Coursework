@@ -7,6 +7,7 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import Subsystems.*;
+	import WeaponDefs.*;
 	
 	/**
 	 * ...
@@ -62,15 +63,9 @@ package
 			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
 			theHUD.AddNewStatusBar(50, 50, 0x0000FF);
 				
-			
-			// Define a Bullet, Weapon, and Weaponslot for the player
-			var mustardBullet:Bullet = new Bullet("MustardSplot.png", 4, 0, g_ImageManager);
-			var mustardWeapon:Weapon = new Weapon(mustardBullet, 10, 0);
-			w_RenderClip.addChild(mustardWeapon);
 			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager);
-			var mustardSlot:WeaponSlot = new WeaponSlot(thePlayer, w_RenderClip, mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
 			var PlayerWeapons:Array = new Array;
-			PlayerWeapons.push(mustardSlot);
+			
 			thePlayer.Init();
 			thePlayer.x = 320/2 - 32;
 			thePlayer.y = 240-64;
@@ -89,6 +84,9 @@ package
 			
 			var sc:ShmupControl = new ShmupControl(thePlayer, PlayerWeapons, stage);
 			
+			// Add Weapons
+			mustardSlot.SetOwner(thePlayer);
+			PlayerWeapons.push(mustardSlot);
 			
 			thePlayer.Init();
 			
