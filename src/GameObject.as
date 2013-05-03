@@ -14,6 +14,7 @@ package
 		// This is so that I don't end up embedding images multiple times.
 		
 		public var subsystems:Array = new Array(); // Collection of Subsystems (see ObjectSubsystem.as)
+		public var gameObjects:Array; // Each object knows where it belongs in the grand scheme of things.
 		
 		public var imageID:String; // Image ID in the ImageManager
 		public var managerInstance:ImageManager; // Image Manager Reference
@@ -32,10 +33,13 @@ package
 		public var maxXSpeed:Number = 1000;
 		public var maxYSpeed:Number = 1000;
 		
-		public function GameObject(_imageID:String, _managerInstance:ImageManager) 
+	
+		
+		public function GameObject(_imageID:String, _managerInstance:ImageManager, _gameObjects:Array) 
 		{
 			imageID = _imageID;
 			managerInstance = _managerInstance;
+			gameObjects = _gameObjects;
 		}
 		
 		public function Init():void
@@ -58,6 +62,8 @@ package
 			{
 				subsystems[i].Update();
 			}			
+			
+			
 		
 		}
 		

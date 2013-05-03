@@ -20,8 +20,12 @@ package
 		
 		public function ObjectSubsystem(_parent:GameObject ) 
 		{
-			parentObject = _parent;
-			parentObject.subsystems.push(this); // Add to Parent
+			if (_parent != null)
+			{
+				parentObject = _parent;
+				parentObject.subsystems.push(this); // Add to Parent
+			}
+			
 		}
 		
 		public function Init():void

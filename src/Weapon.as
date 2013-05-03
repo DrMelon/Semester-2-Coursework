@@ -19,6 +19,8 @@ package
 		public var team:Number;
 		
 		public var CurrentBullets:Array = new Array;
+		
+		public var gameObjectList:Array; // reference to game object list.
 	
 		
 		public function Weapon(_bt:Bullet, _rof:Number, _team:Number) 
@@ -27,6 +29,7 @@ package
 			rateOfFire = _rof;
 			currentFire = 0;
 			team = _team;
+			
 		}
 		
 		public function FireBullet(doubleShot:Boolean, w_RenderClip:Sprite):Boolean
@@ -34,7 +37,7 @@ package
 			if (currentFire == 0)
 			{
 				// Shoot a bullet, copying the parameters of the type
-				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.managerInstance);
+				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.managerInstance, gameObjectList);
 				newBullet.x = x;
 				newBullet.y = y;
 				
@@ -43,7 +46,7 @@ package
 				
 				newBullet.Init();
 				// Add Bullet to objects list
-				CurrentBullets.push(newBullet);
+				gameObjectList.push(newBullet);
 				
 				if (doubleShot == false)
 				{
@@ -59,15 +62,7 @@ package
 		
 		public function Update(e:Event = null):void
 		{
-			for (var i:int = 0; i < CurrentBullets.length; i++)
-			{
-				CurrentBullets[i].Update(e);
-				if (CurrentBullets[i].y > 260 || CurrentBullets[i].y < -40)
-				{
-					CurrentBullets.splice(i, 1);
-					i -= 1;
-				}
-			}
+			
 			if (currentFire > 0)
 			{
 				currentFire--;

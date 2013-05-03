@@ -30,7 +30,7 @@ package Subsystems
 		
 		public function WeaponSlot(w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
 		{
-			
+			super(null);
 			
 			doubleShot = _ds;
 			MaxAmmo = _maxammo;

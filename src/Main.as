@@ -1,11 +1,9 @@
-package 
+package
 {
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.display.Stage;
-	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import Subsystems.*;
 	import WeaponDefs.*;
 	
@@ -13,10 +11,11 @@ package
 	 * ...
 	 * @author J. Brown
 	 */
-	[SWF(backgroundColor="0xFFFFFF" , width="640" , height="480")]
-	public class Main extends Sprite 
+	[SWF(backgroundColor="0xFFFFFF",width="640",height="480")]
+	
+	public class Main extends Sprite
 	{
-
+		
 		// Image Manager
 		private var g_ImageManager:ImageManager = new ImageManager();
 		private var theHUD:HUD = new HUD();
@@ -28,16 +27,19 @@ package
 		private var gameObjects:Array = new Array();
 		
 		private var scrollingBack:ScrollingBackground;
-
 		
-		public function Main():void 
+		private var AllWeapons:WeaponDef = new WeaponDef();
+		
+		public function Main():void
 		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+			if (stage)
+				init();
+			else
+				addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, Update);
 		}
 		
-		private function init(e:Event = null):void 
+		private function init(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.frameRate = 60;
@@ -45,11 +47,9 @@ package
 			
 			w_RenderClip = new Sprite();
 			
-			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			
-
 			// Load Graphics into Image Manager
 			g_ImageManager.Load();
 			
@@ -62,17 +62,18 @@ package
 			theHUD.AddNewStatusBar(50, 50, 0xFF0000);
 			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
 			theHUD.AddNewStatusBar(50, 50, 0x0000FF);
-				
-			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager);
+			
+			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager, gameObjects);
 			var PlayerWeapons:Array = new Array;
 			
 			thePlayer.Init();
-			thePlayer.x = 320/2 - 32;
-			thePlayer.y = 240-64;
+			thePlayer.x = 320 / 2 - 32;
+			thePlayer.y = 240 - 64;
 			w_RenderClip.addChild(thePlayer);
 			gameObjects.push(thePlayer);
 			
-
+			// Initialize Weapons
+			AllWeapons.InitWeapons(g_ImageManager, w_RenderClip, theHUD, gameObjects);
 			
 			// Add Subsystems
 			var mv:Movement = new Movement(thePlayer);
@@ -83,17 +84,37 @@ package
 			mv.rightConstraint = 320 - 8 - thePlayer.width;
 			
 			var sc:ShmupControl = new ShmupControl(thePlayer, PlayerWeapons, stage);
+			var dh:DamageHandler = new DamageHandler(thePlayer, false, true, 100, 0, 0, 30);
+			dh.theHUDBar = theHUD.statusBars[0]; // set to health bar
+			
+			// Test Enemy
+			var theEnemy:GameObject = new GameObject("Carrot.png", g_ImageManager, gameObjects);
+			theEnemy.Init();
+			theEnemy.x = 320 / 2 - 16;
+			theEnemy.y = 48;
+			w_RenderClip.addChild(theEnemy);
+			gameObjects.push(theEnemy);
+			
+			var emv:Movement = new Movement(theEnemy);
+			var mp:FollowPattern = new FollowPattern(theEnemy, 3);
+			var enemyPattern:Array = new Array;
+			enemyPattern.push(new Point(0,0));
+			enemyPattern.push(new Point(320, 240));
+			mp.PatternCoordinates = enemyPattern;
+			
+			var edh:DamageHandler = new DamageHandler(theEnemy, true, true, 5, 10, 1);
+			
+			theEnemy.Init();
 			
 			// Add Weapons
-			mustardSlot.SetOwner(thePlayer);
-			PlayerWeapons.push(mustardSlot);
+			AllWeapons.mustardSlot.SetOwner(thePlayer);
+			PlayerWeapons.push(AllWeapons.mustardSlot);
 			
 			thePlayer.Init();
 			
 			w_RenderClip.addChild(theHUD);
-			theHUD.Draw();		
+			theHUD.Draw();
 			
-			trace("Thing");
 			
 			
 			// Render at 2x Size
@@ -101,7 +122,7 @@ package
 			w_RenderClip.scaleY = 2;
 			
 			addChild(w_RenderClip);
-
+		
 		}
 		
 		private function Update(e:Event = null):void
@@ -117,7 +138,7 @@ package
 			// And hud
 			theHUD.Update();
 		}
-		
-	}
 	
+	}
+
 }

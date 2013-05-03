@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Bitmap;
 	import flash.events.Event;
+	import Subsystems.DamageHandler;
 	import Subsystems.Movement;
 	/**
 	 * ...
@@ -12,13 +13,15 @@ package
 		// Bullets use the DamageController subsystem to deal contact damage to things not on their team.
 		public var bulletSpeed:Number;
 		public var bulletTeam:Number;
-		
+		public var damHandler:DamageHandler;
 		// Team determines bullet direction. Enemies come from the top, so anything on the enemy team comes down the screen.
 		
 		
-		public function Bullet(_img:String, _spd:Number, _team:Number, _managerInstance:ImageManager) 
+		
+		
+		public function Bullet(_img:String, _spd:Number, _team:Number, _managerInstance:ImageManager, _gameObjects:Array) 
 		{
-			super(_img, _managerInstance);
+			super(_img, _managerInstance, _gameObjects);
 			
 			bulletSpeed = _spd;
 			bulletTeam = _team;
@@ -27,6 +30,7 @@ package
 			maxYSpeed = bulletSpeed;
 			
 			var mv:Movement = new Movement(this); // add movement subsystem.
+			damHandler = new DamageHandler(this, true, false, 0, 5, bulletTeam); // add damage handler
 		}
 		
 		override public function Init():void
