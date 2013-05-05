@@ -5,7 +5,7 @@ package
 	import flash.events.Event;
 	import flash.geom.Point;
 	import Subsystems.*;
-	import WeaponDefs.*;
+	import Defines.*;
 	
 	/**
 	 * ...
@@ -18,7 +18,13 @@ package
 		
 		// Image Manager
 		private var g_ImageManager:ImageManager = new ImageManager();
+		
+		// Sound Manager
+		private var g_SoundManager:SoundManager = new SoundManager();
+		
+		// HUD
 		private var theHUD:HUD = new HUD();
+		
 		
 		// Movie clip things are added to for rendering.
 		private var w_RenderClip:Sprite;
@@ -29,6 +35,7 @@ package
 		private var scrollingBack:ScrollingBackground;
 		
 		private var AllWeapons:WeaponDef = new WeaponDef();
+		private var Animations:AnimDef = new AnimDef();
 		
 		public function Main():void
 		{
@@ -53,15 +60,22 @@ package
 			// Load Graphics into Image Manager
 			g_ImageManager.Load();
 			
-			// Add scrolling background
-			scrollingBack = new ScrollingBackground();
-			w_RenderClip.addChild(scrollingBack);
-			
 			// Set up HUD
 			theHUD.y = 240 - 26;
 			theHUD.AddNewStatusBar(50, 50, 0xFF0000);
 			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
 			theHUD.AddNewStatusBar(50, 50, 0x0000FF);
+			
+			// Load Animations
+			Animations.InitAnims(g_ImageManager);
+			// Initialize Weapons
+			AllWeapons.InitWeapons(g_ImageManager, g_SoundManager, w_RenderClip, theHUD, gameObjects);			
+			
+			// Add scrolling background
+			scrollingBack = new ScrollingBackground();
+			w_RenderClip.addChild(scrollingBack);
+			
+
 			
 			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager, gameObjects);
 			var PlayerWeapons:Array = new Array;
@@ -72,8 +86,7 @@ package
 			w_RenderClip.addChild(thePlayer);
 			gameObjects.push(thePlayer);
 			
-			// Initialize Weapons
-			AllWeapons.InitWeapons(g_ImageManager, w_RenderClip, theHUD, gameObjects);
+
 			
 			// Add Subsystems
 			var mv:Movement = new Movement(thePlayer);
@@ -102,7 +115,8 @@ package
 			enemyPattern.push(new Point(320, 240));
 			mp.PatternCoordinates = enemyPattern;
 			
-			var edh:DamageHandler = new DamageHandler(theEnemy, true, true, 5, 10, 1);
+			var edh:DamageHandler = new DamageHandler(theEnemy, true, true, 20, 10, 1);
+			edh.DeathAnimation = Animations.explosion_small;
 			
 			theEnemy.Init();
 			
@@ -131,6 +145,14 @@ package
 			for (var i:int = 0; i < gameObjects.length; i++)
 			{
 				gameObjects[i].Update(e);
+				
+				if (gameObjects[i].y < -48 || gameObjects[i].y > 240+48)
+				{
+					// if something strays too far off screen, kill it.
+					w_RenderClip.removeChild(gameObjects[i]);
+					gameObjects.splice(i, 1);
+					i--;
+				}
 			}
 			
 			// Update background

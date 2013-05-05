@@ -4,6 +4,7 @@ package
 	import flash.events.Event;
 	import Subsystems.DamageHandler;
 	import Subsystems.Movement;
+	import Defines.AnimDef;
 	/**
 	 * ...
 	 * @author ...
@@ -30,7 +31,10 @@ package
 			maxYSpeed = bulletSpeed;
 			
 			var mv:Movement = new Movement(this); // add movement subsystem.
+			var anims:AnimDef = new AnimDef(); // animations
+			anims.InitAnims(managerInstance);
 			damHandler = new DamageHandler(this, true, false, 0, 5, bulletTeam); // add damage handler
+			damHandler.DeathAnimation = anims.explosion_small;
 		}
 		
 		override public function Init():void
@@ -54,6 +58,18 @@ package
 			{
 				subsystems[i].Init();
 			}
+		}
+		
+		override public function Update(e:Event = null):void
+		{
+			// Activate subsystems
+			for (var i:int = 0; i < subsystems.length; i++)
+			{
+				subsystems[i].Update();
+			}			
+			
+
+			
 		}
 		
 		

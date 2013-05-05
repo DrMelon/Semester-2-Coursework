@@ -2,6 +2,7 @@ package Subsystems
 {
 	import flash.events.Event;
 	import flash.utils.getQualifiedClassName;
+	import Defines.*;
 	/**
 	 * ...
 	 * @author ...
@@ -22,7 +23,9 @@ package Subsystems
 		public var CurrentInvincibility:Number;
 		public var HasBeenHit:Boolean;
 		public var Team:Number; // which team it's on - enemies shouldn't damage enemies
-		
+		public var DeathAnimation:Array = new Array(); // death anim
+		public var Dead:Boolean;
+
 		
 		public function DamageHandler(_parent:GameObject, _CausesDamage:Boolean, _RecievesDamage:Boolean, _MaxHealth:Number, _Damage:Number, _Team:Number, _Invincibility:Number = 0) 
 		{
@@ -35,14 +38,17 @@ package Subsystems
 			Team = _Team;
 			InvincibilityFrames = _Invincibility;
 			CurrentInvincibility = _Invincibility;
-			
-			
+			Dead = false;
 			
 			
 		}
 		
-		public function TakeDamage(activator:DamageHandler):void
+		public function TakeDamage(activator:DamageHandler):Boolean
 		{
+			if (Dead)
+			{
+				return false;
+			}
 			//Can only take damage from another damagehandler
 			if (RecievesDamage && activator.CausesDamage && activator.Damage > 0 && activator.Team != this.Team && HasBeenHit == false)
 			{
@@ -56,25 +62,54 @@ package Subsystems
 						Die();
 					}
 				}
+				return true;
 			}
+			return false;
 		}
 		
 		public function Die():void
 		{
 			trace(this + " died!");
+			if (DeathAnimation.length > 0)
+			{
+				// Show an explosion!
+				var sa:ShowAnimation = new ShowAnimation(parentObject, DeathAnimation, 2, false);
+				// Remove any movement subsystem.
+				for (var i:int = 0; i < parentObject.subsystems.length; i++)
+				{
+					if (getQualifiedClassName(parentObject.subsystems[i]) == "Subsystems::Movement")
+					{
+						parentObject.subsystems.splice(i, 1)
+						i--;
+					}
+				}
+			}
+			Dead = true;
+			
 		}
 		
 		public function CauseDamage(target:GameObject):void
 		{
+			if (Dead)
+			{
+				return;
+			}
 			//See if the target gameobject has a damagehandler, and if so, make it take damage.
 			for (var i:int = 0; i < target.subsystems.length; i++)
 			{
-				
 				if (getQualifiedClassName(target.subsystems[i]) == "Subsystems::DamageHandler")
 				{
-					target.subsystems[i].TakeDamage(this);
+					if (target.subsystems[i].TakeDamage(this))
+					{
+						if (Health == 0)
+						{
+							// If we have no health, we're likely to be a bullet. So we die.
+							Die();
+						}
+					}
 				}
 			}
+
 		}
 		
 		override public function Update(e:Event = null):void
@@ -87,26 +122,29 @@ package Subsystems
 					if (parentObject.hitTestObject(parentObject.gameObjects[i]))
 					{
 						this.CauseDamage(parentObject.gameObjects[i]);
+						
 					}
 				}
 			}
 			
 			
-			
-			if (InvincibilityFrames > 0 && HasBeenHit == true) // if we've been hit and we have invincibility frames
+			if (InvincibilityFrames > 0)
 			{
-				if (CurrentInvincibility > 0)
+				if (HasBeenHit == true) // if we've been hit and we have invincibility frames
 				{
-					CurrentInvincibility--;
-					if ( (CurrentInvincibility % 4) == 0)
+					if (CurrentInvincibility > 0)
 					{
-						parentObject.visible = !parentObject.visible; // blink on and off
+						CurrentInvincibility--;
+						if ( (CurrentInvincibility % 4) == 0)
+						{
+							parentObject.visible = !parentObject.visible; // blink on and off
+						}
 					}
-				}
-				else
-				{
-					CurrentInvincibility = InvincibilityFrames;
-					HasBeenHit = false;
+					else
+					{
+						CurrentInvincibility = InvincibilityFrames;
+						HasBeenHit = false;
+					}
 				}
 			}
 			else
@@ -114,6 +152,7 @@ package Subsystems
 				HasBeenHit = false;
 				parentObject.visible = true; //prevent blink being permanently off
 			}
+			
 			
 			if (Health > MaxHealth)
 			{

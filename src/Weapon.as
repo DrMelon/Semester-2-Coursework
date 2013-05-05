@@ -21,15 +21,19 @@ package
 		public var CurrentBullets:Array = new Array;
 		
 		public var gameObjectList:Array; // reference to game object list.
-	
 		
-		public function Weapon(_bt:Bullet, _rof:Number, _team:Number) 
+		public var soundManagerInstance:SoundManager;
+		
+		public var soundToPlay:String;
+		
+		public function Weapon(_bt:Bullet, _rof:Number, _team:Number, g_SoundManager:SoundManager, _soundToPlay:String) 
 		{
 			bulletType = _bt;
 			rateOfFire = _rof;
 			currentFire = 0;
 			team = _team;
-			
+			soundManagerInstance = g_SoundManager;
+			soundToPlay = _soundToPlay;
 		}
 		
 		public function FireBullet(doubleShot:Boolean, w_RenderClip:Sprite):Boolean
@@ -53,7 +57,10 @@ package
 					currentFire = rateOfFire;
 				}
 				
+				//Play Sound
+				soundManagerInstance.PlaySoundByKeyword(soundToPlay);
 				return true;
+				
 
 			}
 			

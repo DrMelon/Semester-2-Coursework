@@ -47,6 +47,28 @@ package
 		private var gfx_LettuceEnemy:Class;
 		
 		
+		// Animations
+		[Embed(source = "../img/animated/explosion_small/explosion_small_1.png")]
+		private var gfx_ExplosionSmall1:Class;
+		[Embed(source = "../img/animated/explosion_small/explosion_small_2.png")]
+		private var gfx_ExplosionSmall2:Class;
+		[Embed(source = "../img/animated/explosion_small/explosion_small_3.png")]
+		private var gfx_ExplosionSmall3:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_4.png")]
+		private var gfx_ExplosionSmall4:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_5.png")]
+		private var gfx_ExplosionSmall5:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_6.png")]
+		private var gfx_ExplosionSmall6:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_7.png")]
+		private var gfx_ExplosionSmall7:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_8.png")]
+		private var gfx_ExplosionSmall8:Class;	
+		[Embed(source = "../img/animated/explosion_small/explosion_small_9.png")]
+		private var gfx_ExplosionSmall9:Class;	
+		
+		
+		
 		public function ImageManager() 
 		{
 			Load();
@@ -75,7 +97,44 @@ package
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("Carrot.png");
 			
-
+			
+			// Animations
+			bmpDat = (new gfx_ExplosionSmall1() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_1.png");
+			
+			bmpDat = (new gfx_ExplosionSmall2() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_2.png");
+			
+			bmpDat = (new gfx_ExplosionSmall3() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_3.png");
+			
+			bmpDat = (new gfx_ExplosionSmall4() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_4.png");
+			
+			bmpDat = (new gfx_ExplosionSmall5() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_5.png");
+			
+			bmpDat = (new gfx_ExplosionSmall6() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_6.png");
+			
+			bmpDat = (new gfx_ExplosionSmall7() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_7.png");
+			
+			bmpDat = (new gfx_ExplosionSmall8() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_8.png");
+			
+			bmpDat = (new gfx_ExplosionSmall9() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_small_9.png");
+			
 			
 		}
 		
