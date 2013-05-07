@@ -41,7 +41,7 @@ package
 			if (currentFire == 0)
 			{
 				// Shoot a bullet, copying the parameters of the type
-				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.managerInstance, gameObjectList);
+				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage, bulletType.managerInstance, gameObjectList);
 				newBullet.x = x;
 				newBullet.y = y;
 				

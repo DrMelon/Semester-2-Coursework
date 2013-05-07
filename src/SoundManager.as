@@ -18,8 +18,11 @@ package
 		// Weapon Firing Noises
 		[Embed(source="../snd/mp3/fire_mustard.mp3")]
 		private var snd_Mustard:Class;
+		[Embed(source = "../snd/mp3/fire_ketchup.mp3")]
+		private var snd_Ketchup:Class;
 		
-		
+		[Embed(source = "../snd/mp3/regen_ammo.mp3")]
+		private var snd_Regen:Class;
 		
 		
 		public function SoundManager() 
@@ -35,7 +38,12 @@ package
 			sndDat = (new snd_Mustard() as Sound); // Add Sound Data
 			soundDataList.push(sndDat);
 			soundKeywords.push("fire_mustard.mp3");
-			
+			sndDat = (new snd_Ketchup() as Sound); // Add Sound Data
+			soundDataList.push(sndDat);
+			soundKeywords.push("fire_ketchup.mp3");
+			sndDat = (new snd_Regen() as Sound); // Add Sound Data
+			soundDataList.push(sndDat);
+			soundKeywords.push("regen_ammo.mp3");
 			
 			
 			

@@ -15,6 +15,7 @@ package Subsystems
 		public var PatternCoordinates:Array; 
 		private var MoveSpeed:Number;
 		private var CurrentPoint:Number;
+		public var Looping:Boolean = true;
 		
 		
 		
@@ -44,10 +45,14 @@ package Subsystems
 			{
 				CurrentPoint++;
 			}
-			else
+			else if(Looping == true)
 			{
 				// Reached the end, loop back
 				CurrentPoint = 0;
+			}
+			else
+			{
+				CurrentPoint = PatternCoordinates.length - 1;
 			}
 		}
 		

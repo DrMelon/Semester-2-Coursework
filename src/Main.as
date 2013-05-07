@@ -30,6 +30,7 @@ package
 		private var w_RenderClip:Sprite;
 		
 		// List of game objects
+		private var enemySpawner:EnemySpawner;
 		private var gameObjects:Array = new Array();
 		
 		private var scrollingBack:ScrollingBackground;
@@ -64,7 +65,7 @@ package
 			theHUD.y = 240 - 26;
 			theHUD.AddNewStatusBar(50, 50, 0xFF0000);
 			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
-			theHUD.AddNewStatusBar(50, 50, 0x0000FF);
+			theHUD.AddNewStatusBar(50, 50, 0x111111);
 			
 			// Load Animations
 			Animations.InitAnims(g_ImageManager);
@@ -78,7 +79,7 @@ package
 
 			
 			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager, gameObjects);
-			var PlayerWeapons:Array = new Array;
+		
 			
 			thePlayer.Init();
 			thePlayer.x = 320 / 2 - 32;
@@ -91,16 +92,17 @@ package
 			// Add Subsystems
 			var mv:Movement = new Movement(thePlayer);
 			mv.constrained = true;
-			mv.topConstraint = 120;
+			mv.topConstraint = 60;
 			mv.botConstraint = 240 - 28;
 			mv.leftConstraint = 8;
 			mv.rightConstraint = 320 - 8 - thePlayer.width;
 			
-			var sc:ShmupControl = new ShmupControl(thePlayer, PlayerWeapons, stage);
+			var sc:ShmupControl = new ShmupControl(thePlayer, stage);
 			var dh:DamageHandler = new DamageHandler(thePlayer, false, true, 100, 0, 0, 30);
 			dh.theHUDBar = theHUD.statusBars[0]; // set to health bar
 			
 			// Test Enemy
+			/*
 			var theEnemy:GameObject = new GameObject("Carrot.png", g_ImageManager, gameObjects);
 			theEnemy.Init();
 			theEnemy.x = 320 / 2 - 16;
@@ -116,13 +118,22 @@ package
 			mp.PatternCoordinates = enemyPattern;
 			
 			var edh:DamageHandler = new DamageHandler(theEnemy, true, true, 20, 10, 1);
-			edh.DeathAnimation = Animations.explosion_small;
+			edh.DeathAnimation = Animations.explosion_16x16;
+			*/
 			
-			theEnemy.Init();
+			//Enemy Spawner
+			enemySpawner = new EnemySpawner(w_RenderClip, g_ImageManager, g_SoundManager, Animations, AllWeapons, gameObjects);
+			
+			var thePowerup:Powerup = new Powerup("KetchupPowerup.png", g_ImageManager, gameObjects, 0, thePlayer, AllWeapons);
+			thePowerup.Init();
+			gameObjects.push(thePowerup);
+			w_RenderClip.addChild(thePowerup);
+			
+			
 			
 			// Add Weapons
 			AllWeapons.mustardSlot.SetOwner(thePlayer);
-			PlayerWeapons.push(AllWeapons.mustardSlot);
+			thePlayer.Weapons.push(AllWeapons.mustardSlot);
 			
 			thePlayer.Init();
 			
@@ -154,7 +165,8 @@ package
 					i--;
 				}
 			}
-			
+			// Update enemy spawner
+			enemySpawner.Update(e);
 			// Update background
 			scrollingBack.Update();
 			// And hud

@@ -39,6 +39,16 @@ package Subsystems
 					else
 					{
 						CurrentFrame = AnimFrames.length - 1;
+						for (var i:int = 0; i < parentObject.gameObjects.length; i++)
+						{
+							if (parentObject.gameObjects[i] == parentObject)
+							{
+								parentObject.gameObjects.splice(i, 1);
+								parentObject.y = 500; // move offscreen and kill.
+								i--;
+								
+							}
+						}
 					}
 				}
 			}

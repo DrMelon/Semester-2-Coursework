@@ -69,7 +69,6 @@ package Subsystems
 		
 		public function Die():void
 		{
-			trace(this + " died!");
 			if (DeathAnimation.length > 0)
 			{
 				// Show an explosion!

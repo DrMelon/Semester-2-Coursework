@@ -13,14 +13,12 @@ package Subsystems
 	{
 		// Given that this involved keyboard control, it's a subclass of the keyboard listener.
 		// Allows the player to push keys and fly the ship around.
-		public var weaponSlots:Array = new Array;
 		public var shooting:Boolean = false;
 		private var myStage:Stage;
 		
-		public function ShmupControl(_parent:GameObject, _weaponSlots:Array, theStage:Stage) 
+		public function ShmupControl(_parent:GameObject, theStage:Stage) 
 		{
 			super(_parent);
-			weaponSlots = _weaponSlots;
 			myStage = theStage;
 		}
 		
@@ -44,9 +42,9 @@ package Subsystems
 			if (shooting == true)
 			{
 				// FIRE ALL WEAPONS
-				for (var i:int = 0; i < weaponSlots.length; i++)
+				for (var i:int = 0; i < parentObject.Weapons.length; i++)
 				{
-					weaponSlots[i].FireWeapon();
+					parentObject.Weapons[i].FireWeapon();
 				}
 			}
 		}

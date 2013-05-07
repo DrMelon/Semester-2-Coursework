@@ -21,19 +21,28 @@ package Defines
 		public var mustardWeapon:Weapon;
 		public var mustardSlot:WeaponSlot;
 		
+		// Ketchup Weapon
+		public var ketchupBullet:Bullet;
+		public var ketchupWeapon:Weapon;
+		public var ketchupSlot:WeaponSlot;
+		
 		
 		
 		public function InitWeapons(g_ImageManager:ImageManager, g_SoundManager:SoundManager, w_RenderClip:Sprite, theHUD:HUD, gameObjectList:Array):void
 		{
-			mustardBullet = new Bullet("MustardSplot.png", 4, 0, g_ImageManager, gameObjectList);
+			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5, g_ImageManager, gameObjectList);
 			mustardWeapon = new Weapon(mustardBullet, 10, 0, g_SoundManager, "fire_mustard.mp3");
 			mustardWeapon.gameObjectList = gameObjectList;
 			
+			ketchupBullet = new Bullet("KetchupSplot.png", 6, 0, 2, g_ImageManager, gameObjectList);
+			ketchupWeapon = new Weapon(ketchupBullet, 4, 0, g_SoundManager, "fire_ketchup.mp3");
+			ketchupWeapon.gameObjectList = gameObjectList;
 			
 			w_RenderClip.addChild(mustardWeapon);
+			w_RenderClip.addChild(ketchupWeapon);
 			
 			mustardSlot = new WeaponSlot(w_RenderClip, mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
-			
+			ketchupSlot = new WeaponSlot(w_RenderClip, ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
 	
 		
 		}

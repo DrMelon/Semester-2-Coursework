@@ -22,6 +22,8 @@ package Subsystems
 		public var MaxAmmo:Number; // Maximum Ammo it can have
 		public var AmmoRefillTime:Number // Refill time (in seconds)
 		
+		public var IsRefilling:Boolean;
+		
 		private var RenderClip:Sprite
 		private var LastFired:Number;
 		
@@ -76,7 +78,7 @@ package Subsystems
 				}
 				else
 				{
-					WeaponRef.x = parentObject.x + parentObject.width / 2;
+					WeaponRef.x = parentObject.x + 24;
 					WeaponRef.y = parentObject.y;
 					fired = WeaponRef.FireBullet(false, RenderClip);
 				}
@@ -84,6 +86,7 @@ package Subsystems
 				{
 					Ammo--;
 					LastFired = AmmoRefillTime;
+					IsRefilling = false;
 				}
 				
 			}
@@ -96,7 +99,12 @@ package Subsystems
 			{
 				if (Ammo < MaxAmmo)
 				{
+					if (IsRefilling == false)
+					{
+						WeaponRef.soundManagerInstance.PlaySoundByKeyword("regen_ammo.mp3");
+					}
 					Ammo++;
+					IsRefilling = true;
 				}
 			}
 			else if(LastFired > 0)

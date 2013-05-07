@@ -33,6 +33,8 @@ package
 		public var maxXSpeed:Number = 1000;
 		public var maxYSpeed:Number = 1000;
 		
+		public var Weapons:Array = new Array();
+		
 	
 		
 		public function GameObject(_imageID:String, _managerInstance:ImageManager, _gameObjects:Array) 

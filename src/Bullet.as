@@ -14,18 +14,20 @@ package
 		// Bullets use the DamageController subsystem to deal contact damage to things not on their team.
 		public var bulletSpeed:Number;
 		public var bulletTeam:Number;
+		public var bulletDamage:Number;
 		public var damHandler:DamageHandler;
 		// Team determines bullet direction. Enemies come from the top, so anything on the enemy team comes down the screen.
 		
 		
 		
 		
-		public function Bullet(_img:String, _spd:Number, _team:Number, _managerInstance:ImageManager, _gameObjects:Array) 
+		public function Bullet(_img:String, _spd:Number, _team:Number, _dam:Number, _managerInstance:ImageManager, _gameObjects:Array) 
 		{
 			super(_img, _managerInstance, _gameObjects);
 			
 			bulletSpeed = _spd;
 			bulletTeam = _team;
+			bulletDamage = _dam;
 			
 			maxXSpeed = bulletSpeed;
 			maxYSpeed = bulletSpeed;
@@ -33,7 +35,7 @@ package
 			var mv:Movement = new Movement(this); // add movement subsystem.
 			var anims:AnimDef = new AnimDef(); // animations
 			anims.InitAnims(managerInstance);
-			damHandler = new DamageHandler(this, true, false, 0, 5, bulletTeam); // add damage handler
+			damHandler = new DamageHandler(this, true, false, 0, bulletDamage, bulletTeam); // add damage handler
 			damHandler.DeathAnimation = anims.explosion_small;
 		}
 		

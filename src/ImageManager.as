@@ -48,6 +48,8 @@ package
 		
 		
 		// Animations
+		
+		// explosion_small
 		[Embed(source = "../img/animated/explosion_small/explosion_small_1.png")]
 		private var gfx_ExplosionSmall1:Class;
 		[Embed(source = "../img/animated/explosion_small/explosion_small_2.png")]
@@ -67,7 +69,31 @@ package
 		[Embed(source = "../img/animated/explosion_small/explosion_small_9.png")]
 		private var gfx_ExplosionSmall9:Class;	
 		
-		
+		// explosion_16x16
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_1.png")]
+		private var gfx_Explosion16x16_1:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_2.png")]
+		private var gfx_Explosion16x16_2:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_3.png")]
+		private var gfx_Explosion16x16_3:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_4.png")]
+		private var gfx_Explosion16x16_4:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_5.png")]
+		private var gfx_Explosion16x16_5:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_6.png")]
+		private var gfx_Explosion16x16_6:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_7.png")]
+		private var gfx_Explosion16x16_7:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_8.png")]
+		private var gfx_Explosion16x16_8:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_9.png")]
+		private var gfx_Explosion16x16_9:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_10.png")]
+		private var gfx_Explosion16x16_10:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_11.png")]
+		private var gfx_Explosion16x16_11:Class;
+		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_12.png")]
+		private var gfx_Explosion16x16_12:Class;		
 		
 		public function ImageManager() 
 		{
@@ -89,8 +115,15 @@ package
 			bmpDat = (new gfx_Mustard() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat)
 			imageKeywords.push("MustardSplot.png");
+			bmpDat = (new gfx_Ketchup() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat)
+			imageKeywords.push("KetchupSplot.png");			
 			
 			// Powerups
+			bmpDat = (new gfx_KetchupPowerup() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("KetchupPowerup.png");
+			
 			
 			// Enemies
 			bmpDat = (new gfx_CarrotEnemy() as Bitmap).bitmapData;
@@ -99,42 +132,73 @@ package
 			
 			
 			// Animations
+			
+			//explosion_small
 			bmpDat = (new gfx_ExplosionSmall1() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
-			imageKeywords.push("explosion_small_1.png");
-			
+			imageKeywords.push("explosion_small_1.png");			
 			bmpDat = (new gfx_ExplosionSmall2() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
-			imageKeywords.push("explosion_small_2.png");
-			
+			imageKeywords.push("explosion_small_2.png");			
 			bmpDat = (new gfx_ExplosionSmall3() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
-			imageKeywords.push("explosion_small_3.png");
-			
+			imageKeywords.push("explosion_small_3.png");			
 			bmpDat = (new gfx_ExplosionSmall4() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_4.png");
-			
 			bmpDat = (new gfx_ExplosionSmall5() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_5.png");
-			
 			bmpDat = (new gfx_ExplosionSmall6() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_6.png");
-			
 			bmpDat = (new gfx_ExplosionSmall7() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_7.png");
-			
 			bmpDat = (new gfx_ExplosionSmall8() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_8.png");
-			
 			bmpDat = (new gfx_ExplosionSmall9() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_small_9.png");
 			
+			//explosion_16x16
+			bmpDat = (new gfx_Explosion16x16_1() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_1.png");			
+			bmpDat = (new gfx_Explosion16x16_2() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_2.png");			
+			bmpDat = (new gfx_Explosion16x16_3() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_3.png");			
+			bmpDat = (new gfx_Explosion16x16_4() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_4.png");
+			bmpDat = (new gfx_Explosion16x16_5() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_5.png");
+			bmpDat = (new gfx_Explosion16x16_6() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_6.png");
+			bmpDat = (new gfx_Explosion16x16_7() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_7.png");
+			bmpDat = (new gfx_Explosion16x16_8() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_8.png");
+			bmpDat = (new gfx_Explosion16x16_9() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_9.png");	
+			bmpDat = (new gfx_Explosion16x16_10() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_10.png");	
+			bmpDat = (new gfx_Explosion16x16_11() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_11.png");	
+			bmpDat = (new gfx_Explosion16x16_12() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("explosion_16x16_12.png");	
 			
 		}
 		
