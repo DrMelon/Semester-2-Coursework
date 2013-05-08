@@ -15,13 +15,7 @@ package
 	
 	public class Main extends Sprite
 	{
-		
-		// Image Manager
-		private var g_ImageManager:ImageManager = new ImageManager();
-		
-		// Sound Manager
-		private var g_SoundManager:SoundManager = new SoundManager();
-		
+				
 		// HUD
 		private var theHUD:HUD = new HUD();
 		
@@ -31,6 +25,7 @@ package
 		
 		// List of game objects
 		private var enemySpawner:EnemySpawner;
+		private var powerupSpawner:PowerupSpawner;
 		private var gameObjects:Array = new Array();
 		
 		private var scrollingBack:ScrollingBackground;
@@ -53,13 +48,16 @@ package
 			stage.frameRate = 60;
 			// entry point
 			
+			Globals.vars.g_ImageManager = new ImageManager();
+			Globals.vars.g_SoundManager = new SoundManager();
+			
 			w_RenderClip = new Sprite();
 			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			
 			// Load Graphics into Image Manager
-			g_ImageManager.Load();
+			Globals.vars.g_ImageManager.Load();
 			
 			// Set up HUD
 			theHUD.y = 240 - 26;
@@ -68,9 +66,9 @@ package
 			theHUD.AddNewStatusBar(50, 50, 0x111111);
 			
 			// Load Animations
-			Animations.InitAnims(g_ImageManager);
+			Animations.InitAnims();
 			// Initialize Weapons
-			AllWeapons.InitWeapons(g_ImageManager, g_SoundManager, w_RenderClip, theHUD, gameObjects);			
+			AllWeapons.InitWeapons(w_RenderClip, theHUD, gameObjects);			
 			
 			// Add scrolling background
 			scrollingBack = new ScrollingBackground();
@@ -78,7 +76,7 @@ package
 			
 
 			
-			var thePlayer:GameObject = new GameObject("Ship.png", g_ImageManager, gameObjects);
+			var thePlayer:GameObject = new GameObject("Ship.png", gameObjects);
 		
 			
 			thePlayer.Init();
@@ -101,33 +99,13 @@ package
 			var dh:DamageHandler = new DamageHandler(thePlayer, false, true, 100, 0, 0, 30);
 			dh.theHUDBar = theHUD.statusBars[0]; // set to health bar
 			
-			// Test Enemy
-			/*
-			var theEnemy:GameObject = new GameObject("Carrot.png", g_ImageManager, gameObjects);
-			theEnemy.Init();
-			theEnemy.x = 320 / 2 - 16;
-			theEnemy.y = 48;
-			w_RenderClip.addChild(theEnemy);
-			gameObjects.push(theEnemy);
 			
-			var emv:Movement = new Movement(theEnemy);
-			var mp:FollowPattern = new FollowPattern(theEnemy, 3);
-			var enemyPattern:Array = new Array;
-			enemyPattern.push(new Point(0,0));
-			enemyPattern.push(new Point(320, 240));
-			mp.PatternCoordinates = enemyPattern;
-			
-			var edh:DamageHandler = new DamageHandler(theEnemy, true, true, 20, 10, 1);
-			edh.DeathAnimation = Animations.explosion_16x16;
-			*/
 			
 			//Enemy Spawner
-			enemySpawner = new EnemySpawner(w_RenderClip, g_ImageManager, g_SoundManager, Animations, AllWeapons, gameObjects);
+			enemySpawner = new EnemySpawner(w_RenderClip, Animations, AllWeapons, gameObjects);
 			
-			var thePowerup:Powerup = new Powerup("KetchupPowerup.png", g_ImageManager, gameObjects, 0, thePlayer, AllWeapons);
-			thePowerup.Init();
-			gameObjects.push(thePowerup);
-			w_RenderClip.addChild(thePowerup);
+			//Powerup spawner
+			powerupSpawner = new PowerupSpawner(w_RenderClip, Animations, AllWeapons, gameObjects, thePlayer, theHUD);
 			
 			
 			
@@ -163,10 +141,16 @@ package
 					w_RenderClip.removeChild(gameObjects[i]);
 					gameObjects.splice(i, 1);
 					i--;
+					if (i > gameObjects.length - 1) // off-by-one catching
+					{
+						i = gameObjects.length - 1;
+					}
 				}
 			}
 			// Update enemy spawner
 			enemySpawner.Update(e);
+			// And powerups
+			powerupSpawner.Update(e);
 			// Update background
 			scrollingBack.Update();
 			// And hud

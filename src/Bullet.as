@@ -16,14 +16,15 @@ package
 		public var bulletTeam:Number;
 		public var bulletDamage:Number;
 		public var damHandler:DamageHandler;
+		
 		// Team determines bullet direction. Enemies come from the top, so anything on the enemy team comes down the screen.
 		
 		
 		
 		
-		public function Bullet(_img:String, _spd:Number, _team:Number, _dam:Number, _managerInstance:ImageManager, _gameObjects:Array) 
+		public function Bullet(_img:String, _spd:Number, _team:Number, _dam:Number, _gameObjects:Array) 
 		{
-			super(_img, _managerInstance, _gameObjects);
+			super(_img, _gameObjects);
 			
 			bulletSpeed = _spd;
 			bulletTeam = _team;
@@ -34,8 +35,9 @@ package
 			
 			var mv:Movement = new Movement(this); // add movement subsystem.
 			var anims:AnimDef = new AnimDef(); // animations
-			anims.InitAnims(managerInstance);
+			anims.InitAnims();
 			damHandler = new DamageHandler(this, true, false, 0, bulletDamage, bulletTeam); // add damage handler
+			damHandler.DeathSound = "shot_connect.mp3";
 			damHandler.DeathAnimation = anims.explosion_small;
 		}
 		
@@ -52,7 +54,7 @@ package
 				yAccel = bulletSpeed;
 			}
 			//Fetch info from manager
-			myBitmap.bitmapData = managerInstance.FetchBitmapDataByKeyword(imageID);
+			myBitmap.bitmapData = Globals.vars.g_ImageManager.FetchBitmapDataByKeyword(imageID);
 			addChild(myBitmap);
 			
 			// Activate subsystems

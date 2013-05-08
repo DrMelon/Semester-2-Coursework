@@ -18,78 +18,212 @@ package
 		// There is a single instance of this class, which constantly generates sets of enemies.
 		
 		public var w_RenderClip:Sprite;
-		public var g_ImageManager:ImageManager;
-		public var g_SoundManager:SoundManager;
 		public var AnimDefs:AnimDef;
 		public var WeaponDefs:WeaponDef;
 		public var gameObjects:Array;
 		
 		public var SetToGenerate:Number = 0;
-		public var SetList:Array = new Array();
+		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 2);
+		public var SetCounter:Number;
 		public var EnemiesInCurrentSet:Array = new Array();
 		public var SetDead:Boolean = false;
+		public var TimeBetweenSets:Number = 75;
+		public var CurrentTimeBetweenSets:Number = 0;
 		public var TimeToSpawn:Number = 15; // delay between 
 		public var NumOfEnemiesInSet:Number = 5; //
 		public var SpawnTimer:Number;
 		
 		
-		public function EnemySpawner(_rc:Sprite, imageman:ImageManager, soundman:SoundManager, anidef:AnimDef, wepdef:WeaponDef, _gameObjects:Array) 
+		public function EnemySpawner(_rc:Sprite, anidef:AnimDef, wepdef:WeaponDef, _gameObjects:Array) 
 		{
 			w_RenderClip = _rc;
-			g_ImageManager = imageman;
-			g_SoundManager = soundman;
 			AnimDefs = anidef;
 			WeaponDefs = wepdef;
 			gameObjects = _gameObjects;
 			SpawnTimer = TimeToSpawn;
-			AnimDefs.InitAnims(g_ImageManager);
+			AnimDefs.InitAnims();
+			CurrentTimeBetweenSets = TimeBetweenSets;
+			SetCounter = 0;
 			
 		}
 		
 		public function Update(e:Event = null):void
 		{
-			if (SpawnTimer == 0)
+			if (SetCounter < SetList.length - 1)
 			{
-				SpawnTimer = TimeToSpawn;
-				switch(SetToGenerate)
+				SetToGenerate = SetList[SetCounter];
+				if (CurrentTimeBetweenSets == 0)
 				{
-					case 0:
-						// 5 Carrot Enemies, Moving down, then right, then down again.
-						if (NumOfEnemiesInSet > 0)
+					if (SpawnTimer == 0)
+					{
+						SpawnTimer = TimeToSpawn;
+						switch(SetToGenerate)
 						{
-							NumOfEnemiesInSet--;
-							var thisEnemy:GameObject = new GameObject("Carrot.png", g_ImageManager, gameObjects);
-							thisEnemy.x = 16;
-							thisEnemy.y = -16;
-							
-							var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 15, 10, 1, 0);
-							var mv:Movement = new Movement(thisEnemy);
-							// Path
-							var path:Array = new Array();
-							var p1:Point = new Point(16, 110);
-							var p2:Point = new Point(260, 110);
-							var p3:Point = new Point(260, 400);		
-							path.push(p1, p2, p3);
-							var pc:FollowPattern = new FollowPattern(thisEnemy, 4);
-							pc.Looping = false;
-							pc.PatternCoordinates = path;
-							dc.DeathAnimation = AnimDefs.explosion_16x16;
-							thisEnemy.Init();
-							w_RenderClip.addChild(thisEnemy);
-							EnemiesInCurrentSet.push(thisEnemy);
-							gameObjects.push(thisEnemy);
+							case 0:
+								// Carrot Ships, Moving down, then right, then down again.
+								if (NumOfEnemiesInSet > 0)
+								{
+									NumOfEnemiesInSet--;
+									AddEnemyOnPath(0, 0);							
+								}
+								if (NumOfEnemiesInSet == 0)
+								{
+									//Clear Current Set
+									SetCounter++;
+									EnemiesInCurrentSet = new Array();
+									NumOfEnemiesInSet = 5;
+									CurrentTimeBetweenSets = TimeBetweenSets;
+								}
+								break;
+							case 1: // Carrot Ships, Going Down-Left-Down
+								if (NumOfEnemiesInSet > 0)
+								{
+									NumOfEnemiesInSet--;
+									AddEnemyOnPath(0, 1);							
+								}
+								if (NumOfEnemiesInSet == 0)
+								{
+									//Clear Current Set
+									SetCounter++;
+									EnemiesInCurrentSet = new Array();
+									NumOfEnemiesInSet = 5;
+									CurrentTimeBetweenSets = TimeBetweenSets;
+								}		
+								break;
+							case 2: // V-Shape of Lettuces
+								if (NumOfEnemiesInSet > 0)
+								{
+									NumOfEnemiesInSet--;
+									if(NumOfEnemiesInSet == 2)
+									{
+										AddEnemy(1, 120-64, -16);
+										AddEnemy(1, 120+64, -16);
+									}
+									else if (NumOfEnemiesInSet == 3)
+									{
+										AddEnemy(1, 120-32, -16);
+										AddEnemy(1, 120+32, -16);
+									}
+									else if (NumOfEnemiesInSet == 4)
+									{
+										AddEnemy(1, 120, -16);
+									}
+									
+								}
+								if (NumOfEnemiesInSet == 0)
+								{
+									//Clear Current Set
+									SetCounter++;
+									EnemiesInCurrentSet = new Array();
+									NumOfEnemiesInSet = 5;
+									CurrentTimeBetweenSets = TimeBetweenSets;
+								}		
+								break;
 						}
-						else
-						{
-							//Clear Current Set, change to set 1.
-							EnemiesInCurrentSet = new Array();
-							NumOfEnemiesInSet = 5;
-							SetToGenerate = 0;
-						}
+					}
+					SpawnTimer--;
 				}
+				if (CurrentTimeBetweenSets > 0)
+				{
+					CurrentTimeBetweenSets--;
+				}
+				
 			}
+		}
+		
+		public function AddEnemy(enemyType:int, xPos:int, yPos:int):void
+		{
+			var thisEnemy:GameObject;
+			switch(enemyType)
+			{
+				case 0: // Carrot Ship
+					thisEnemy = new GameObject("Carrot.png", gameObjects);
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 15, 10, 1, 0);
+					dc.DeathAnimation = AnimDefs.explosion_16x16;
+					dc.DeathSound = "enemyship_blowup.mp3";
+					var mv:Movement = new Movement(thisEnemy);		
+					thisEnemy.ySpeed = 3;
+					thisEnemy.maxYSpeed = 3;
+					thisEnemy.yAccel = 1;
+					break;
+				case 1: // Lettuce
+					thisEnemy = new GameObject("Lettuce.png", gameObjects);
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 25, 5, 1, 0);
+					dc.DeathAnimation = AnimDefs.explosion_16x16;
+					dc.DeathSound = "enemyship_blowup.mp3";
+					var mv:Movement = new Movement(thisEnemy);
+					thisEnemy.ySpeed = 0;
+					thisEnemy.maxYSpeed = 2;
+					thisEnemy.yAccel = 0.04;
+			}
+			// Add to lists and update position.
 			
-			SpawnTimer--;
+			thisEnemy.x = xPos;
+			thisEnemy.y = yPos;
+			thisEnemy.Init();
+			w_RenderClip.addChild(thisEnemy);
+			EnemiesInCurrentSet.push(thisEnemy);
+			gameObjects.push(thisEnemy);			
+		}
+		
+		public function AddEnemyOnPath(enemyType:int, pathNumber:int):void
+		{
+			var thisEnemy:GameObject;
+			switch(enemyType)
+			{
+				case 0: // Carrot Ship
+					thisEnemy = new GameObject("Carrot.png", gameObjects);
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 15, 10, 1, 0);
+					dc.DeathAnimation = AnimDefs.explosion_16x16;
+					dc.DeathSound = "enemyship_blowup.mp3";
+					var mv:Movement = new Movement(thisEnemy);							
+					break;
+				case 1: // Lettuce
+					thisEnemy = new GameObject("Lettuce.png", gameObjects);
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 25, 5, 1, 0);
+					dc.DeathAnimation = AnimDefs.explosion_16x16;
+					dc.DeathSound = "enemyship_blowup.mp3";
+					var mv:Movement = new Movement(thisEnemy);		
+					break;
+			}
+		
+			// Add path
+			var path:Array = new Array();
+			switch(pathNumber)
+			{
+				case 0:
+					//Down, Right, Down
+					thisEnemy.x = 16;
+					thisEnemy.y = -16;
+					var p1:Point = new Point(16, 110);
+					var p2:Point = new Point(260, 110);
+					var p3:Point = new Point(260, 400);		
+					path.push(p1, p2, p3);				
+					break;
+				case 1:
+					//Down, Left, Down
+					thisEnemy.x = 260;
+					thisEnemy.y = -16;
+					var p1:Point = new Point(260, 110);
+					var p2:Point = new Point(16, 110);
+					var p3:Point = new Point(16, 400);		
+					path.push(p1, p2, p3);
+					break;
+					
+											
+			}
+			var pc:FollowPattern = new FollowPattern(thisEnemy, 4);
+			pc.PatternCoordinates = path;	
+			
+			
+			thisEnemy.Init();
+			w_RenderClip.addChild(thisEnemy);
+			EnemiesInCurrentSet.push(thisEnemy);
+			gameObjects.push(thisEnemy);		
+			
+			
+			
+			
 		}
 		
 	}

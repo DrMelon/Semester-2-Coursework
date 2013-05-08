@@ -129,6 +129,9 @@ package
 			bmpDat = (new gfx_CarrotEnemy() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("Carrot.png");
+			bmpDat = (new gfx_LettuceEnemy() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Lettuce.png");
 			
 			
 			// Animations

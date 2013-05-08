@@ -22,17 +22,17 @@ package
 		
 		public var gameObjectList:Array; // reference to game object list.
 		
-		public var soundManagerInstance:SoundManager;
+	
 		
 		public var soundToPlay:String;
 		
-		public function Weapon(_bt:Bullet, _rof:Number, _team:Number, g_SoundManager:SoundManager, _soundToPlay:String) 
+		public function Weapon(_bt:Bullet, _rof:Number, _team:Number, _soundToPlay:String) 
 		{
 			bulletType = _bt;
 			rateOfFire = _rof;
 			currentFire = 0;
 			team = _team;
-			soundManagerInstance = g_SoundManager;
+			
 			soundToPlay = _soundToPlay;
 		}
 		
@@ -41,7 +41,7 @@ package
 			if (currentFire == 0)
 			{
 				// Shoot a bullet, copying the parameters of the type
-				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage, bulletType.managerInstance, gameObjectList);
+				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage, gameObjectList);
 				newBullet.x = x;
 				newBullet.y = y;
 				
@@ -58,7 +58,7 @@ package
 				}
 				
 				//Play Sound
-				soundManagerInstance.PlaySoundByKeyword(soundToPlay);
+				Globals.vars.g_SoundManager.PlaySoundByKeyword(soundToPlay);
 				return true;
 				
 

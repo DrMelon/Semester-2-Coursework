@@ -28,14 +28,14 @@ package Defines
 		
 		
 		
-		public function InitWeapons(g_ImageManager:ImageManager, g_SoundManager:SoundManager, w_RenderClip:Sprite, theHUD:HUD, gameObjectList:Array):void
+		public function InitWeapons(w_RenderClip:Sprite, theHUD:HUD, gameObjectList:Array):void
 		{
-			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5, g_ImageManager, gameObjectList);
-			mustardWeapon = new Weapon(mustardBullet, 10, 0, g_SoundManager, "fire_mustard.mp3");
+			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5, gameObjectList);
+			mustardWeapon = new Weapon(mustardBullet, 10, 0, "fire_mustard.mp3");
 			mustardWeapon.gameObjectList = gameObjectList;
 			
-			ketchupBullet = new Bullet("KetchupSplot.png", 6, 0, 2, g_ImageManager, gameObjectList);
-			ketchupWeapon = new Weapon(ketchupBullet, 4, 0, g_SoundManager, "fire_ketchup.mp3");
+			ketchupBullet = new Bullet("KetchupSplot.png", 6, 0, 2, gameObjectList);
+			ketchupWeapon = new Weapon(ketchupBullet, 4, 0, "fire_ketchup.mp3");
 			ketchupWeapon.gameObjectList = gameObjectList;
 			
 			w_RenderClip.addChild(mustardWeapon);
@@ -43,6 +43,9 @@ package Defines
 			
 			mustardSlot = new WeaponSlot(w_RenderClip, mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
 			ketchupSlot = new WeaponSlot(w_RenderClip, ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
+			
+			mustardSlot.name = "Mustard";
+			ketchupSlot.name = "Ketchup Lv1";
 	
 		
 		}

@@ -30,6 +30,8 @@ package Subsystems
 		// Reference to HUD Bar to display ammo
 		public var HUDRef:StatusBar;
 		
+		public var name:String; // name to track powerups etc
+		
 		public function WeaponSlot(w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
 		{
 			super(null);
@@ -90,6 +92,7 @@ package Subsystems
 				}
 				
 			}
+			
 				
 		}
 		
@@ -101,7 +104,7 @@ package Subsystems
 				{
 					if (IsRefilling == false)
 					{
-						WeaponRef.soundManagerInstance.PlaySoundByKeyword("regen_ammo.mp3");
+						Globals.vars.g_SoundManager.PlaySoundByKeyword("regen_ammo.mp3");
 					}
 					Ammo++;
 					IsRefilling = true;

@@ -24,7 +24,9 @@ package Subsystems
 		public var HasBeenHit:Boolean;
 		public var Team:Number; // which team it's on - enemies shouldn't damage enemies
 		public var DeathAnimation:Array = new Array(); // death anim
+		public var DeathSound:String = "";
 		public var Dead:Boolean;
+	
 
 		
 		public function DamageHandler(_parent:GameObject, _CausesDamage:Boolean, _RecievesDamage:Boolean, _MaxHealth:Number, _Damage:Number, _Team:Number, _Invincibility:Number = 0) 
@@ -39,6 +41,7 @@ package Subsystems
 			InvincibilityFrames = _Invincibility;
 			CurrentInvincibility = _Invincibility;
 			Dead = false;
+			
 			
 			
 		}
@@ -69,6 +72,10 @@ package Subsystems
 		
 		public function Die():void
 		{
+			if (Dead == true)
+			{
+				return;
+			}
 			if (DeathAnimation.length > 0)
 			{
 				// Show an explosion!
@@ -80,10 +87,17 @@ package Subsystems
 					{
 						parentObject.subsystems.splice(i, 1)
 						i--;
+						if (i > parentObject.subsystems.length - 1)
+						{
+							i == parentObject.subsystems.length - 1;
+						}
 					}
 				}
 			}
+			
+			Globals.vars.g_SoundManager.PlaySoundByKeyword(DeathSound);
 			Dead = true;
+			
 			
 		}
 		

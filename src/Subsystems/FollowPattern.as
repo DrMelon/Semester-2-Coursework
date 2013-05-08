@@ -15,7 +15,7 @@ package Subsystems
 		public var PatternCoordinates:Array; 
 		private var MoveSpeed:Number;
 		private var CurrentPoint:Number;
-		public var Looping:Boolean = true;
+		public var Looping:Boolean = false;
 		
 		
 		

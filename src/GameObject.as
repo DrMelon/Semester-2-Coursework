@@ -17,7 +17,6 @@ package
 		public var gameObjects:Array; // Each object knows where it belongs in the grand scheme of things.
 		
 		public var imageID:String; // Image ID in the ImageManager
-		public var managerInstance:ImageManager; // Image Manager Reference
 		public var myBitmap:Bitmap = new Bitmap();
 		
 		public var flipped:Boolean = false;
@@ -37,17 +36,16 @@ package
 		
 	
 		
-		public function GameObject(_imageID:String, _managerInstance:ImageManager, _gameObjects:Array) 
+		public function GameObject(_imageID:String, _gameObjects:Array) 
 		{
 			imageID = _imageID;
-			managerInstance = _managerInstance;
 			gameObjects = _gameObjects;
 		}
 		
 		public function Init():void
 		{
 			//Fetch info from manager
-			myBitmap.bitmapData = managerInstance.FetchBitmapDataByKeyword(imageID);
+			myBitmap.bitmapData = Globals.vars.g_ImageManager.FetchBitmapDataByKeyword(imageID);
 			addChild(myBitmap);
 			
 			// Activate subsystems

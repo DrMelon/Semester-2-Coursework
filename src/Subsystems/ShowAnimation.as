@@ -43,9 +43,9 @@ package Subsystems
 						{
 							if (parentObject.gameObjects[i] == parentObject)
 							{
-								parentObject.gameObjects.splice(i, 1);
+								
 								parentObject.y = 500; // move offscreen and kill.
-								i--;
+								
 								
 							}
 						}
