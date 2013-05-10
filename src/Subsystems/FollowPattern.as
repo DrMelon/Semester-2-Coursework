@@ -77,10 +77,11 @@ package Subsystems
 			vectorToMove.x = parentObject.x - PatternCoordinates[CurrentPoint].x;
 			vectorToMove.y = parentObject.y - PatternCoordinates[CurrentPoint].y;
 			
-			// If distance < 1, we made it.
-			if (Math.abs(vectorToMove.x) < 1 && Math.abs(vectorToMove.y) < 1)
+			// If the distance is really close, we made it.
+			if (Math.abs(vectorToMove.x) < 1.5 && Math.abs(vectorToMove.y) < 1.5)
 			{
 				SwitchPoint();
+				return;
 			}
 			
 			// Make unit vector

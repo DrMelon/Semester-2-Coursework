@@ -20,9 +20,7 @@ package
 		
 		public var CurrentBullets:Array = new Array;
 		
-		public var gameObjectList:Array; // reference to game object list.
 		
-	
 		
 		public var soundToPlay:String;
 		
@@ -36,30 +34,56 @@ package
 			soundToPlay = _soundToPlay;
 		}
 		
-		public function FireBullet(doubleShot:Boolean, w_RenderClip:Sprite):Boolean
+		public function FireBullet(doubleShot:Boolean):Boolean
 		{
+			
 			if (currentFire == 0)
 			{
-				// Shoot a bullet, copying the parameters of the type
-				var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage, gameObjectList);
-				newBullet.x = x;
-				newBullet.y = y;
-				
-				// Add bullet to renderclip
-				w_RenderClip.addChild(newBullet);
-				
-				newBullet.Init();
-				// Add Bullet to objects list
-				gameObjectList.push(newBullet);
-				
-				if (doubleShot == false)
+				var numToShoot:Number = 1;
+				if (rateOfFire < 1)
 				{
-					currentFire = rateOfFire;
+					// Shoot multiple bullets in one frame if ROF < 1
+					numToShoot = (1 - rateOfFire)*10*2;
+					
+					
 				}
 				
-				//Play Sound
-				Globals.vars.g_SoundManager.PlaySoundByKeyword(soundToPlay);
-				return true;
+				for (var i:int = 0; i < numToShoot; i++)
+				{
+					// Shoot a bullet, copying the parameters of the type
+					var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage);
+					newBullet.x = x;
+					newBullet.y = y;
+					if (rateOfFire < 1)
+					{
+						//add spread to bullets & rotation
+						newBullet.bulletSpread = 1 - rateOfFire;
+						newBullet.rotation = (Math.random() * 360) - 180;
+					}
+					
+					// Add bullet to renderclip
+					Globals.vars.w_RenderClip.addChild(newBullet);
+					
+					newBullet.Init();
+					// Add Bullet to objects list
+					Globals.vars.gameObjects.push(newBullet);
+					
+					if (doubleShot == false)
+					{
+						currentFire = rateOfFire;
+						if (rateOfFire < 1)
+						{
+							currentFire = 1;
+						}
+						
+					}
+					
+					//Play Sound
+					Globals.vars.g_SoundManager.PlaySoundByKeyword(soundToPlay);
+					return true;
+				}
+				
+				
 				
 
 			}

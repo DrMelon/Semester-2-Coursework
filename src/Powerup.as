@@ -16,16 +16,15 @@ package
 										   //
 										   
 		public var player:GameObject;
-		public var weapondef:WeaponDef;
 		public var collected:Boolean = false;
 		
 		
-		public function Powerup(_imageID:String, _gameObjects:Array, _type:Number, _player:GameObject, _weapondef:WeaponDef) 
+		public function Powerup(_imageID:String, _type:Number, _player:GameObject) 
 		{
-			super(_imageID, _gameObjects);
+			super(_imageID);
 			powerupType = _type;
 			player = _player;
-			weapondef = _weapondef;
+			
 			
 			
 			var mv:Movement = new Movement(this);
@@ -59,17 +58,18 @@ package
 			{
 				// Play sound
 				Globals.vars.g_SoundManager.PlaySoundByKeyword("pickup_powerup.mp3");
-				
+				Globals.vars.score += 500;
 				
 				//Give player the powerup.
 				switch(powerupType)
 				{
-					case 0:
+					case 0: // Ketchup Gun
 						for (var i:int = 0; i < player.Weapons.length; i++)
 						{
 							//if we already have ketchup shots, first upgrade to doubleshot, then to faster firing, then to ammo.
 							if (player.Weapons[i].name == "Ketchup Lv1")
 							{
+								player.Weapons[i].disabled = false;
 								haveAlready = true;
 								player.Weapons[i].doubleShot = true;
 								player.Weapons[i].positionX = 4;
@@ -78,26 +78,90 @@ package
 							}
 							else if (player.Weapons[i].name == "Ketchup Lv2")
 							{
+								player.Weapons[i].disabled = false;
 								haveAlready = true;
 								player.Weapons[i].WeaponRef.rateOfFire--;
 								player.Weapons[i].name = "Ketchup Lv3";
 							}
 							else if (player.Weapons[i].name == "Ketchup Lv3")
 							{
+								player.Weapons[i].disabled = false;
 								haveAlready = true;
 								player.Weapons[i].HUDRef.maxValue = 500;
 								player.Weapons[i].MaxAmmo = 500;
 								player.Weapons[i].Ammo = 500;
-				
+							}
+							else if (player.Weapons[i].name == "Mustard")
+							{
+								// Do Nothing
+							}
+							else
+							{
+								// Must be other weapon, kill it.
+								player.Weapons[i].disabled = true;
+							}
+							
+							
+						}
+						if(haveAlready == false)
+						{
+							Globals.vars.Weapons.ketchupSlot.SetOwner(player);
+							
+							player.Weapons.push(Globals.vars.Weapons.ketchupSlot);
+							player.Weapons[1].WeaponRef.currentFire = player.Weapons[1].WeaponRef.rateOfFire;
+						}
+						Globals.vars.Weapons.ketchupSlot.HUDRef.barColour = 0x00FFFF;
+						
+						collected = true;
+						visible = false;
+						break;
+						
+						
+					case 1: // Flamethrower
+						for (var i:int = 0; i < player.Weapons.length; i++)
+						{
+							//if we already have chilli shots, we want to upgrade its firerate twice
+							if (player.Weapons[i].name == "Chilli Lv1")
+							{
+								player.Weapons[i].disabled = false;
+								haveAlready = true;
+								player.Weapons[i].WeaponRef.rateOfFire = 0.5;
+								player.Weapons[i].name = "Chilli Lv2"
+							}
+							else if (player.Weapons[i].name == "Chilli Lv2")
+							{
+								player.Weapons[i].disabled = false;
+								haveAlready = true;
+								player.Weapons[i].WeaponRef.rateOfFire = 0.1;
+								player.Weapons[i].name = "Chilli Lv3";
+							}
+							else if (player.Weapons[i].name == "Chilli Lv3")
+							{
+								player.Weapons[i].disabled = false;
+								haveAlready = true;
+								player.Weapons[i].HUDRef.maxValue = 200;
+								player.Weapons[i].MaxAmmo = 200;
+								player.Weapons[i].Ammo = 200;
+							}
+							else if (player.Weapons[i].name == "Mustard")
+							{
+								// Do Nothing
+							}
+							else
+							{
+								// Must be other weapon, kill it.
+								player.Weapons[i].disabled = true;
 							}
 							
 						}
 						if(haveAlready == false)
 						{
-							weapondef.ketchupSlot.SetOwner(player);
-							weapondef.ketchupSlot.HUDRef.barColour = 0x00FFFF;
-							player.Weapons.push(weapondef.ketchupSlot);
+							Globals.vars.Weapons.chilliSlot.SetOwner(player);
+							
+							player.Weapons.push(Globals.vars.Weapons.chilliSlot);
 						}
+						
+						Globals.vars.Weapons.chilliSlot.HUDRef.barColour = 0xFF7700;
 						
 						collected = true;
 						visible = false;

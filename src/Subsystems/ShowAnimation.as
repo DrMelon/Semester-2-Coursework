@@ -39,9 +39,9 @@ package Subsystems
 					else
 					{
 						CurrentFrame = AnimFrames.length - 1;
-						for (var i:int = 0; i < parentObject.gameObjects.length; i++)
+						for (var i:int = 0; i < Globals.vars.gameObjects.length; i++)
 						{
-							if (parentObject.gameObjects[i] == parentObject)
+							if (Globals.vars.gameObjects[i] == parentObject)
 							{
 								
 								parentObject.y = 500; // move offscreen and kill.

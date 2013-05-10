@@ -1,6 +1,8 @@
 package  
 {
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	/**
 	 * ...
 	 * @author ...
@@ -10,7 +12,9 @@ package
 		
 		private var soundDataList:Array = new Array(); // Holds the Bitmap Data Loaded from the Embedded Images
 		private var soundKeywords:Array = new Array();  // Used to hold the keywords that other classes can use to load images. Usually the same as the image's filename.
-		
+		private var soundTransform:SoundTransform = new SoundTransform();
+		private var soundChannel:SoundChannel = new SoundChannel();
+		private var musicChannel:SoundChannel = new SoundChannel();
 		// Embedding Images - Thankfully this only happens once.
 		// Note - Most of these images will be spritesheets. Animated GameObjects also have a reference to an AnimationManager where all the animations
 		// from the spritesheets are defined. The AnimationManager manages frame timings etc.
@@ -36,6 +40,11 @@ package
 		private var snd_EnemyDeath:Class;
 		
 		
+		// Music
+		[Embed(source = "../snd/mp3/music.mp3")]
+		private var snd_Music:Class;
+		
+		
 		public function SoundManager() 
 		{
 			Load();
@@ -49,12 +58,15 @@ package
 			sndDat = (new snd_Mustard() as Sound); // Add Sound Data
 			soundDataList.push(sndDat);
 			soundKeywords.push("fire_mustard.mp3");
+			
 			sndDat = (new snd_Ketchup() as Sound); // Add Sound Data
 			soundDataList.push(sndDat);
 			soundKeywords.push("fire_ketchup.mp3");
+			
 			sndDat = (new snd_Regen() as Sound); // Add Sound Data
 			soundDataList.push(sndDat);
 			soundKeywords.push("regen_ammo.mp3");
+			
 			sndDat = (new snd_Powerup() as Sound); 
 			soundDataList.push(sndDat);
 			soundKeywords.push("pickup_powerup.mp3");
@@ -62,20 +74,36 @@ package
 			sndDat = (new snd_ShotConnect() as Sound); 
 			soundDataList.push(sndDat);
 			soundKeywords.push("shot_connect.mp3");
+			
 			sndDat = (new snd_EnemyDeath() as Sound); 
 			soundDataList.push(sndDat);
 			soundKeywords.push("enemyship_blowup.mp3");			
 			
+			sndDat = (new snd_Music() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("music.mp3");
 			
-			
+			soundChannel.soundTransform = soundTransform;
 		}
 		
 		public function PlaySoundByKeyword(keyword:String):void
 		{
 			if (soundKeywords.indexOf(keyword) != -1)
 			{
-				
-				soundDataList[soundKeywords.indexOf(keyword)].play();
+				if (keyword != "music.mp3")
+				{
+					soundTransform.volume = 0.2;
+					trace("Quieter.");
+					soundChannel = soundDataList[soundKeywords.indexOf(keyword)].play();
+					if (soundChannel != null)
+					{
+						soundChannel.soundTransform = soundTransform;
+					}
+				}
+				else
+				{
+					//musicChannel = soundDataList[soundKeywords.indexOf(keyword)].play();
+				}
 			}
 			else
 			{

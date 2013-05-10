@@ -27,12 +27,14 @@ package Subsystems
 		private var RenderClip:Sprite
 		private var LastFired:Number;
 		
+		public var disabled:Boolean = false;
+		
 		// Reference to HUD Bar to display ammo
 		public var HUDRef:StatusBar;
 		
 		public var name:String; // name to track powerups etc
 		
-		public function WeaponSlot(w_RenderClip:Sprite, _weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
+		public function WeaponSlot(_weapon:Weapon, _bar:StatusBar, _maxammo:Number, _ammorefill:Number, _ds:Boolean = false, _pX:Number = 0, _pY:Number = 0 ) 
 		{
 			super(null);
 			
@@ -42,7 +44,7 @@ package Subsystems
 			AmmoRefillTime = _ammorefill * 60;
 			LastFired = AmmoRefillTime;
 			
-			RenderClip = w_RenderClip;
+		
 			
 			if (doubleShot == true)
 			{
@@ -67,6 +69,10 @@ package Subsystems
 		
 		public function FireWeapon():void
 		{
+			if (disabled)
+			{
+				return;
+			}
 			if (Ammo > 0)
 			{
 				var fired:Boolean = false;
@@ -74,15 +80,15 @@ package Subsystems
 				{
 					WeaponRef.y = parentObject.y + positionY;
 					WeaponRef.x = parentObject.x + (24) - positionX;
-					WeaponRef.FireBullet(true, RenderClip);
+					WeaponRef.FireBullet(true);
 					WeaponRef.x = parentObject.x + (24) + positionX;
-					fired = WeaponRef.FireBullet(false, RenderClip);
+					fired = WeaponRef.FireBullet(false);
 				}
 				else
 				{
 					WeaponRef.x = parentObject.x + 24;
 					WeaponRef.y = parentObject.y;
-					fired = WeaponRef.FireBullet(false, RenderClip);
+					fired = WeaponRef.FireBullet(false);
 				}
 				if (fired == true)
 				{
@@ -98,6 +104,10 @@ package Subsystems
 		
 		override public function Update(e:Event = null):void
 		{
+			if (disabled)
+			{
+				return;
+			}
 			if (LastFired == 0)
 			{
 				if (Ammo < MaxAmmo)
@@ -114,6 +124,7 @@ package Subsystems
 			{
 				LastFired--;
 			}
+			HUDRef.maxValue = MaxAmmo;
 			HUDRef.value = Ammo;
 			WeaponRef.Update(e);
 			

@@ -14,7 +14,7 @@ package
 		// This is so that I don't end up embedding images multiple times.
 		
 		public var subsystems:Array = new Array(); // Collection of Subsystems (see ObjectSubsystem.as)
-		public var gameObjects:Array; // Each object knows where it belongs in the grand scheme of things.
+		
 		
 		public var imageID:String; // Image ID in the ImageManager
 		public var myBitmap:Bitmap = new Bitmap();
@@ -36,10 +36,10 @@ package
 		
 	
 		
-		public function GameObject(_imageID:String, _gameObjects:Array) 
+		public function GameObject(_imageID:String) 
 		{
 			imageID = _imageID;
-			gameObjects = _gameObjects;
+			
 		}
 		
 		public function Init():void

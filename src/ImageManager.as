@@ -25,6 +25,9 @@ package
 		private var gfx_Mustard:Class;
 		[Embed(source = "../img/KetchupSplot.png")]
 		private var gfx_Ketchup:Class;		
+		[Embed(source = "../img/FlameParticle.png")]
+		private var gfx_FlameParticle:Class;
+		
 		
 		// Powerups
 		[Embed(source = "../img/ChilliPowerupIcon.png")]
@@ -45,6 +48,10 @@ package
 		private var gfx_CarrotEnemy:Class;
 		[Embed(source = "../img/Lettuce.png")]
 		private var gfx_LettuceEnemy:Class;
+		[Embed(source = "../img/Broccoli.png")]
+		private var gfx_BroccoliEnemy:Class;
+		[Embed(source = "../img/PumpkinShip.png")]
+		private var gfx_PumpkinEnemy:Class;
 		
 		
 		// Animations
@@ -118,11 +125,19 @@ package
 			bmpDat = (new gfx_Ketchup() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat)
 			imageKeywords.push("KetchupSplot.png");			
+			bmpDat = (new gfx_FlameParticle() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat)
+			imageKeywords.push("FlameParticle.png");			
 			
 			// Powerups
 			bmpDat = (new gfx_KetchupPowerup() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("KetchupPowerup.png");
+			
+			bmpDat = (new gfx_ChilliPowerup() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("ChilliPowerup.png");
+			
 			
 			
 			// Enemies

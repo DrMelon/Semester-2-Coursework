@@ -26,6 +26,7 @@ package Subsystems
 		public var DeathAnimation:Array = new Array(); // death anim
 		public var DeathSound:String = "";
 		public var Dead:Boolean;
+		public var Score:Number = 0;
 	
 
 		
@@ -95,6 +96,7 @@ package Subsystems
 				}
 			}
 			
+			Globals.vars.score += this.Score;
 			Globals.vars.g_SoundManager.PlaySoundByKeyword(DeathSound);
 			Dead = true;
 			
@@ -128,13 +130,13 @@ package Subsystems
 		override public function Update(e:Event = null):void
 		{
 			//Check for collisions against other objects.
-			for (var i:int = 0; i < parentObject.gameObjects.length; i++)
+			for (var i:int = 0; i < Globals.vars.gameObjects.length; i++)
 			{
-				if (parentObject != parentObject.gameObjects[i])
+				if (parentObject != Globals.vars.gameObjects[i])
 				{
-					if (parentObject.hitTestObject(parentObject.gameObjects[i]))
+					if (parentObject.hitTestObject(Globals.vars.gameObjects[i]))
 					{
-						this.CauseDamage(parentObject.gameObjects[i]);
+						this.CauseDamage(Globals.vars.gameObjects[i]);
 						
 					}
 				}

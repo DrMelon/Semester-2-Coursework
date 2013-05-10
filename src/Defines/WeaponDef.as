@@ -26,26 +26,36 @@ package Defines
 		public var ketchupWeapon:Weapon;
 		public var ketchupSlot:WeaponSlot;
 		
+		// Chilli Flamethrower
+		public var chilliBullet:Bullet;
+		public var chilliWeapon:Weapon;
+		public var chilliSlot:WeaponSlot;
 		
 		
-		public function InitWeapons(w_RenderClip:Sprite, theHUD:HUD, gameObjectList:Array):void
+		public function InitWeapons(theHUD:HUD):void
 		{
-			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5, gameObjectList);
+			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5);
 			mustardWeapon = new Weapon(mustardBullet, 10, 0, "fire_mustard.mp3");
-			mustardWeapon.gameObjectList = gameObjectList;
 			
-			ketchupBullet = new Bullet("KetchupSplot.png", 6, 0, 2, gameObjectList);
+			
+			ketchupBullet = new Bullet("KetchupSplot.png", 6, 0, 2);
 			ketchupWeapon = new Weapon(ketchupBullet, 4, 0, "fire_ketchup.mp3");
-			ketchupWeapon.gameObjectList = gameObjectList;
 			
-			w_RenderClip.addChild(mustardWeapon);
-			w_RenderClip.addChild(ketchupWeapon);
+			chilliBullet = new Bullet("FlameParticle.png", 8, 0, 1);
+			chilliWeapon = new Weapon(chilliBullet, 0.4, 0, "shot_connect.mp3");
+		
 			
-			mustardSlot = new WeaponSlot(w_RenderClip, mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
-			ketchupSlot = new WeaponSlot(w_RenderClip, ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
+			Globals.vars.w_RenderClip.addChild(mustardWeapon);
+			Globals.vars.w_RenderClip.addChild(ketchupWeapon);
+			Globals.vars.w_RenderClip.addChild(chilliWeapon);
+			
+			mustardSlot = new WeaponSlot(mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
+			ketchupSlot = new WeaponSlot(ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
+			chilliSlot = new WeaponSlot(chilliWeapon, theHUD.statusBars[2], 200, 3, false, 0, 0);
 			
 			mustardSlot.name = "Mustard";
 			ketchupSlot.name = "Ketchup Lv1";
+			chilliSlot.name = "Chilli Lv1";
 	
 		
 		}

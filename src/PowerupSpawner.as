@@ -17,10 +17,7 @@ package
 	{
 		// There is a single instance of this class, which constantly generates random powerups on a timer.
 		
-		public var w_RenderClip:Sprite;
-		public var AnimDefs:AnimDef;
-		public var WeaponDefs:WeaponDef;
-		public var gameObjects:Array;
+	
 		public var thePlayer:GameObject;
 		public var playersHUD:HUD;
 		
@@ -29,16 +26,13 @@ package
 		public var CurrentTime:Number;
 		
 		
-		public function PowerupSpawner(_rc:Sprite, anidef:AnimDef, wepdef:WeaponDef, _gameObjects:Array, _player:GameObject, _playershud:HUD) 
+		public function PowerupSpawner(_player:GameObject, _playershud:HUD) 
 		{
-			w_RenderClip = _rc;
-			AnimDefs = anidef;
-			WeaponDefs = wepdef;
-			gameObjects = _gameObjects;
+
 			thePlayer = _player;
 			playersHUD = _playershud;
 			
-			WeaponDefs.InitWeapons(w_RenderClip, playersHUD, gameObjects);
+		
 			
 			CurrentTime = 0;
 		}
@@ -53,12 +47,22 @@ package
 				{
 					case 0:
 						//Ketchup
-						var thePowerup:Powerup = new Powerup("KetchupPowerup.png", gameObjects, PowerupToGenerate, thePlayer, WeaponDefs);
+						var thePowerup:Powerup = new Powerup("KetchupPowerup.png", PowerupToGenerate, thePlayer);
 						thePowerup.Init();
-						gameObjects.push(thePowerup);
-						w_RenderClip.addChild(thePowerup);
+						Globals.vars.gameObjects.push(thePowerup);
+						Globals.vars.w_RenderClip.addChild(thePowerup);
 						break;
+					case 1:
+						//Ketchup
+						var thePowerup:Powerup = new Powerup("ChilliPowerup.png", PowerupToGenerate, thePlayer);
+						thePowerup.Init();
+						Globals.vars.gameObjects.push(thePowerup);
+						Globals.vars.w_RenderClip.addChild(thePowerup);
+						break;						
 				}
+				
+				PowerupToGenerate = Math.round(Math.random());
+				trace(PowerupToGenerate);
 				
 			
 			}
