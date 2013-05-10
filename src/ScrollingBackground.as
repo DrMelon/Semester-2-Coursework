@@ -37,6 +37,8 @@ package
 			_background2.y = _background1.height + _background1.y;
 			_background3.y = _background2.height + _background2.y;
 			
+			scaleX = 1.5;
+			scaleY = 1.5;
 			
 			
 		}

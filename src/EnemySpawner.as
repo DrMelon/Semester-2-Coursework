@@ -6,6 +6,7 @@ package
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.media.Sound;
+	import Subsystems.AutoFireWeapon;
 	import Subsystems.DamageHandler;
 	import Subsystems.FollowPattern;
 	import Subsystems.Movement;
@@ -20,7 +21,7 @@ package
 		
 		
 		public var SetToGenerate:Number = 0;
-		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 0, 3, 2, 1, 3, 0, 2);
+		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 4, 3, 2, 1, 3, 0, 2);
 		public var SetCounter:Number;
 		public var EnemiesInCurrentSet:Array = new Array();
 		public var SetDead:Boolean = false;
@@ -128,7 +129,25 @@ package
 									NumOfEnemiesInSet = 5;
 									CurrentTimeBetweenSets = TimeBetweenSets;
 								}		
-								break;								
+								break;		
+							case 4: // Pumpkin Ships Ivading!
+								if (NumOfEnemiesInSet > 0)
+								{
+									NumOfEnemiesInSet--;
+									if (NumOfEnemiesInSet < 1)
+									{
+										AddEnemyOnPath(2, 0);
+									}
+								}
+								if (NumOfEnemiesInSet == 0)
+								{
+									//Clear Current Set
+									SetCounter++;
+									EnemiesInCurrentSet = new Array();
+									NumOfEnemiesInSet = 5;
+									CurrentTimeBetweenSets = TimeBetweenSets;
+								}		
+								break;	
 						}
 					}
 					SpawnTimer--;
@@ -167,6 +186,17 @@ package
 					thisEnemy.ySpeed = 0;
 					thisEnemy.maxYSpeed = 2;
 					thisEnemy.yAccel = 0.04;
+					break;
+				case 2: // Pumpkin Ship
+					thisEnemy = new GameObject("PumpkinShip.png");
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 50, 10, 1, 0);
+					dc.DeathAnimation = Globals.vars.Animations.explosion_16x16; //want bigger explosion
+					dc.DeathSound = "enemyship_blowup.mp3";
+					dc.Score = 350;
+					var mv:Movement = new Movement(thisEnemy);
+					thisEnemy.ySpeed = 0;
+					thisEnemy.maxYSpeed = 0.6;
+					thisEnemy.yAccel = 0.04;
 			}
 			// Add to lists and update position.
 			
@@ -199,7 +229,16 @@ package
 					dc.Score = 100;
 					var mv:Movement = new Movement(thisEnemy);		
 					break;
-			}
+				case 2: // Pumpkin Ship
+					thisEnemy = new GameObject("PumpkinShip.png");
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 50, 10, 1, 0);
+					dc.DeathAnimation = Globals.vars.Animations.explosion_16x16; //want bigger explosion
+					dc.DeathSound = "enemyship_blowup.mp3";
+					dc.Score = 350;
+					var mv:Movement = new Movement(thisEnemy);
+					var af:AutoFireWeapon = new AutoFireWeapon(thisEnemy, Globals.vars.Weapons.enemyPumpkinSlot);
+					break;
+				}
 		
 			// Add path
 			var path:Array = new Array();

@@ -34,7 +34,7 @@ package
 			
 		
 			
-			CurrentTime = 0;
+			CurrentTime = TimeBetweenPowerups;
 		}
 		
 		public function Update(e:Event = null):void

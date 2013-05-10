@@ -99,7 +99,8 @@ package
 			// Add scrolling background
 			scrollingBack = new ScrollingBackground();
 			Globals.vars.w_RenderClip.addChild(scrollingBack);
-			
+			scrollingBack.x -= 80;
+			scrollingBack.y -= 60;
 
 			
 			thePlayer = new GameObject("Ship.png");
@@ -171,6 +172,9 @@ package
 				scoreCounter.y = 120 - 32;
 				scoreCounter.scaleX = 3;
 				scoreCounter.scaleY = 3;
+				
+				// STOP THE MUSIC
+				Globals.vars.g_SoundManager.musicChannel.stop();
 			}
 			else
 			{
@@ -197,6 +201,9 @@ package
 				powerupSpawner.Update(e);
 				// Update background
 				scrollingBack.Update();
+				// Parallax
+				scrollingBack.x = ( -80) - (thePlayer.x * 0.2);
+				scrollingBack.y = ( -60) - (thePlayer.y * 0.2);
 				// And hud
 				scoreCounter.text = "Score: " + Globals.vars.score;
 				theHUD.Update();

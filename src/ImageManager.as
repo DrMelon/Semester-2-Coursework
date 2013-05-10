@@ -27,6 +27,8 @@ package
 		private var gfx_Ketchup:Class;		
 		[Embed(source = "../img/FlameParticle.png")]
 		private var gfx_FlameParticle:Class;
+		[Embed(source = "../img/PumpkinSeed.png")]
+		private var gfx_PumpkinSeed:Class;
 		
 		
 		// Powerups
@@ -127,7 +129,10 @@ package
 			imageKeywords.push("KetchupSplot.png");			
 			bmpDat = (new gfx_FlameParticle() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat)
-			imageKeywords.push("FlameParticle.png");			
+			imageKeywords.push("FlameParticle.png");						
+			bmpDat = (new gfx_PumpkinSeed() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat)
+			imageKeywords.push("PumpkinSeed.png");			
 			
 			// Powerups
 			bmpDat = (new gfx_KetchupPowerup() as Bitmap).bitmapData;
@@ -147,7 +152,9 @@ package
 			bmpDat = (new gfx_LettuceEnemy() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("Lettuce.png");
-			
+			bmpDat = (new gfx_PumpkinEnemy() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("PumpkinShip.png");
 			
 			// Animations
 			

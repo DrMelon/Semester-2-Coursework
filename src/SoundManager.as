@@ -14,7 +14,7 @@ package
 		private var soundKeywords:Array = new Array();  // Used to hold the keywords that other classes can use to load images. Usually the same as the image's filename.
 		private var soundTransform:SoundTransform = new SoundTransform();
 		private var soundChannel:SoundChannel = new SoundChannel();
-		private var musicChannel:SoundChannel = new SoundChannel();
+		public var musicChannel:SoundChannel = new SoundChannel();
 		// Embedding Images - Thankfully this only happens once.
 		// Note - Most of these images will be spritesheets. Animated GameObjects also have a reference to an AnimationManager where all the animations
 		// from the spritesheets are defined. The AnimationManager manages frame timings etc.
@@ -24,6 +24,10 @@ package
 		private var snd_Mustard:Class;
 		[Embed(source = "../snd/mp3/fire_ketchup.mp3")]
 		private var snd_Ketchup:Class;
+		[Embed(source = "../snd/mp3/flame.mp3")]
+		private var snd_Chilli:Class;
+		
+		
 		// Regen Ammo Noise
 		[Embed(source = "../snd/mp3/regen_ammo.mp3")]
 		private var snd_Regen:Class;
@@ -63,6 +67,10 @@ package
 			soundDataList.push(sndDat);
 			soundKeywords.push("fire_ketchup.mp3");
 			
+			sndDat = (new snd_Chilli() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("flame.mp3");
+			
 			sndDat = (new snd_Regen() as Sound); // Add Sound Data
 			soundDataList.push(sndDat);
 			soundKeywords.push("regen_ammo.mp3");
@@ -83,6 +91,8 @@ package
 			soundDataList.push(sndDat);
 			soundKeywords.push("music.mp3");
 			
+			
+			
 			soundChannel.soundTransform = soundTransform;
 		}
 		
@@ -92,8 +102,7 @@ package
 			{
 				if (keyword != "music.mp3")
 				{
-					soundTransform.volume = 0.2;
-					trace("Quieter.");
+					soundTransform.volume = 0.4;
 					soundChannel = soundDataList[soundKeywords.indexOf(keyword)].play();
 					if (soundChannel != null)
 					{
@@ -102,7 +111,8 @@ package
 				}
 				else
 				{
-					//musicChannel = soundDataList[soundKeywords.indexOf(keyword)].play();
+					
+					musicChannel = soundDataList[soundKeywords.indexOf(keyword)].play(0, 999);
 				}
 			}
 			else

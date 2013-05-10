@@ -76,7 +76,10 @@ package
 			{
 				subsystems[i].Update();
 			}			
-			
+			if (rotation != 0)
+			{
+				this.rotation++;
+			}
 			
 			
 		}

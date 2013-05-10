@@ -55,10 +55,11 @@ package Subsystems
 			WeaponRef = _weapon;
 			HUDRef = _bar;
 			
-			
-			HUDRef.maxValue = MaxAmmo;
-			HUDRef.value = Ammo;
-			
+			if (HUDRef != null)
+			{
+				HUDRef.maxValue = MaxAmmo;
+				HUDRef.value = Ammo;
+			}
 		}
 		
 		public function SetOwner(_parent:GameObject):void
@@ -78,15 +79,17 @@ package Subsystems
 				var fired:Boolean = false;
 				if (doubleShot)
 				{
+					
 					WeaponRef.y = parentObject.y + positionY;
-					WeaponRef.x = parentObject.x + (24) - positionX;
+					WeaponRef.x = parentObject.x + (parentObject.myBitmap.width / 2) - (4) - positionX;
 					WeaponRef.FireBullet(true);
-					WeaponRef.x = parentObject.x + (24) + positionX;
+					WeaponRef.x = parentObject.x + (parentObject.myBitmap.width / 2) - (4) + positionX;
 					fired = WeaponRef.FireBullet(false);
 				}
 				else
 				{
-					WeaponRef.x = parentObject.x + 24;
+					
+					WeaponRef.x = parentObject.x + (parentObject.myBitmap.width / 2) - (4);
 					WeaponRef.y = parentObject.y;
 					fired = WeaponRef.FireBullet(false);
 				}
@@ -124,8 +127,11 @@ package Subsystems
 			{
 				LastFired--;
 			}
-			HUDRef.maxValue = MaxAmmo;
-			HUDRef.value = Ammo;
+			if (HUDRef != null)
+			{
+				HUDRef.maxValue = MaxAmmo;
+				HUDRef.value = Ammo;
+			}
 			WeaponRef.Update(e);
 			
 		}

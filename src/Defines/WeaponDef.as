@@ -31,6 +31,10 @@ package Defines
 		public var chilliWeapon:Weapon;
 		public var chilliSlot:WeaponSlot;
 		
+		public var enemyPumpkinBullet:Bullet;
+		public var enemyPumpkinWeapon:Weapon;
+		public var enemyPumpkinSlot:WeaponSlot;
+		
 		
 		public function InitWeapons(theHUD:HUD):void
 		{
@@ -42,16 +46,16 @@ package Defines
 			ketchupWeapon = new Weapon(ketchupBullet, 4, 0, "fire_ketchup.mp3");
 			
 			chilliBullet = new Bullet("FlameParticle.png", 8, 0, 1);
-			chilliWeapon = new Weapon(chilliBullet, 0.4, 0, "shot_connect.mp3");
+			chilliWeapon = new Weapon(chilliBullet, 0.4, 0, "flame.mp3");
 		
+			enemyPumpkinBullet = new Bullet("PumpkinSeed.png", 3, 1, 20);
+			enemyPumpkinWeapon = new Weapon(enemyPumpkinBullet, 15, 1, "fire_ketchup.mp3");
 			
-			Globals.vars.w_RenderClip.addChild(mustardWeapon);
-			Globals.vars.w_RenderClip.addChild(ketchupWeapon);
-			Globals.vars.w_RenderClip.addChild(chilliWeapon);
 			
 			mustardSlot = new WeaponSlot(mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
 			ketchupSlot = new WeaponSlot(ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
 			chilliSlot = new WeaponSlot(chilliWeapon, theHUD.statusBars[2], 200, 3, false, 0, 0);
+			enemyPumpkinSlot = new WeaponSlot(enemyPumpkinWeapon, null, 999, 999, false, 0, 0);
 			
 			mustardSlot.name = "Mustard";
 			ketchupSlot.name = "Ketchup Lv1";
