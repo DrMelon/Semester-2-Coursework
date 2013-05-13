@@ -21,7 +21,7 @@ package
 		
 		
 		public var SetToGenerate:Number = 0;
-		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 4, 3, 2, 1, 3, 0, 2);
+		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 4, 3, 2, 1, 3, 0, 5, 0);
 		public var SetCounter:Number;
 		public var EnemiesInCurrentSet:Array = new Array();
 		public var SetDead:Boolean = false;
@@ -124,7 +124,7 @@ package
 								if (NumOfEnemiesInSet == 0)
 								{
 									//Clear Current Set
-									SetCounter++;
+									SetCounter++; 
 									EnemiesInCurrentSet = new Array();
 									NumOfEnemiesInSet = 5;
 									CurrentTimeBetweenSets = TimeBetweenSets;
@@ -148,6 +148,25 @@ package
 									CurrentTimeBetweenSets = TimeBetweenSets;
 								}		
 								break;	
+							case 5:
+								if (NumOfEnemiesInSet > 0)
+								{
+									NumOfEnemiesInSet--;
+									if (NumOfEnemiesInSet == 1)
+									{
+										// BOSS TIME! 
+										AddEnemy(3, 0, 0);
+									}	
+								}
+								if (NumOfEnemiesInSet == 0)
+								{
+									SetCounter++;
+									EnemiesInCurrentSet = new Array();
+									NumOfEnemiesInSet = 5;
+									CurrentTimeBetweenSets = TimeBetweenSets;
+								}
+								break;
+								
 						}
 					}
 					SpawnTimer--;
@@ -197,6 +216,22 @@ package
 					thisEnemy.ySpeed = 0;
 					thisEnemy.maxYSpeed = 0.6;
 					thisEnemy.yAccel = 0.04;
+				case 3: // Pizza Boss
+					thisEnemy = new GameObject("Pizza.png");
+					var dc:DamageHandler = new DamageHandler(thisEnemy, true, true, 1500, 10, 1, 0);
+					//Death Animation & Death Sound
+					dc.Score = 15000;
+					// Add Healthbar to HUD
+					Globals.vars.theHUD.AddNewStatusBar(1500, 1500, 0xFF0077);
+					Globals.vars.theHUD.statusBars[3].x = 150;
+					Globals.vars.theHUD.statusBars[3].y = Globals.vars.theHUD.statusBars[2].y;
+					Globals.vars.w_RenderClip.addChild(Globals.vars.theHUD.statusBars[3]);
+					dc.theHUDBar = Globals.vars.theHUD.statusBars[3];
+					dc.Boss = true;
+					// Cutscene Subsystem
+					
+					
+					
 			}
 			// Add to lists and update position.
 			

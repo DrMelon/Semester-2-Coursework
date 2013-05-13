@@ -18,9 +18,7 @@ package
 	public class Main extends Sprite
 	{
 				
-		// HUD
 		
-		private var theHUD:HUD = new HUD();
 		
 		// Set up font and score counter.
 		[Embed(source = "../fnt/Press-Start-K.ttf", 
@@ -69,6 +67,7 @@ package
 			Globals.vars.Weapons = new WeaponDef();
 			Globals.vars.w_RenderClip = new Sprite(); // Everything renders onto this sprite so I can do 2x scaling
 			Globals.vars.gameObjects = new Array();
+			Globals.vars.theHUD = new HUD();
 			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
@@ -77,10 +76,10 @@ package
 			Globals.vars.g_ImageManager.Load();
 			
 			// Set up HUD
-			theHUD.y = 240 - 26;
-			theHUD.AddNewStatusBar(50, 50, 0xFF0000);
-			theHUD.AddNewStatusBar(50, 50, 0x00FF00);
-			theHUD.AddNewStatusBar(50, 50, 0x111111);
+			Globals.vars.theHUD.y = 240 - 26;
+			Globals.vars.theHUD.AddNewStatusBar(50, 50, 0xFF0000);
+			Globals.vars.theHUD.AddNewStatusBar(50, 50, 0x00FF00);
+			Globals.vars.theHUD.AddNewStatusBar(50, 50, 0x111111);
 			formatter.color = 0xFFFFFF;
 			formatter.size = 8;
 			scoreCounter.embedFonts = true;
@@ -94,7 +93,7 @@ package
 			// Load Animations
 			Globals.vars.Animations.InitAnims();
 			// Initialize Weapons
-			Globals.vars.Weapons.InitWeapons(theHUD);			
+			Globals.vars.Weapons.InitWeapons(Globals.vars.theHUD);			
 			
 			// Add scrolling background
 			scrollingBack = new ScrollingBackground();
@@ -123,7 +122,7 @@ package
 			
 			var sc:ShmupControl = new ShmupControl(thePlayer, stage);
 			playerDamage = new DamageHandler(thePlayer, false, true, 100, 0, 0, 30);
-			playerDamage.theHUDBar = theHUD.statusBars[0]; // set to health bar
+			playerDamage.theHUDBar = Globals.vars.theHUD.statusBars[0]; // set to health bar
 			
 			
 			
@@ -131,7 +130,7 @@ package
 			enemySpawner = new EnemySpawner();
 			
 			//Powerup spawner
-			powerupSpawner = new PowerupSpawner(thePlayer, theHUD);
+			powerupSpawner = new PowerupSpawner(thePlayer, Globals.vars.theHUD);
 			
 			
 			
@@ -141,8 +140,8 @@ package
 			thePlayer.Init();
 			
 			
-			Globals.vars.w_RenderClip.addChild(theHUD);
-			theHUD.Draw();
+			Globals.vars.w_RenderClip.addChild(Globals.vars.theHUD);
+			Globals.vars.theHUD.Draw();
 			
 			
 			
@@ -206,7 +205,7 @@ package
 				scrollingBack.y = ( -60) - (thePlayer.y * 0.2);
 				// And hud
 				scoreCounter.text = "Score: " + Globals.vars.score;
-				theHUD.Update();
+				Globals.vars.theHUD.Update();
 				
 			}
 			

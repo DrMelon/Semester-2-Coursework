@@ -26,6 +26,7 @@ package Subsystems
 		public var DeathAnimation:Array = new Array(); // death anim
 		public var DeathSound:String = "";
 		public var Dead:Boolean;
+		public var Boss:Boolean = false;
 		public var Score:Number = 0;
 	
 
@@ -99,8 +100,16 @@ package Subsystems
 			Globals.vars.score += this.Score;
 			Globals.vars.g_SoundManager.PlaySoundByKeyword(DeathSound);
 			Dead = true;
-			
-			
+			if (Boss)
+			{
+				// Exploding cutscene start
+				var loads:LoadsOfExplosions = new LoadsOfExplosions();
+				Globals.vars.gameObjects.push(loads);
+				trace("LOL YOU WIN");
+				
+				
+			}
+				
 		}
 		
 		public function CauseDamage(target:GameObject):void

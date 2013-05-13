@@ -54,7 +54,8 @@ package
 		private var gfx_BroccoliEnemy:Class;
 		[Embed(source = "../img/PumpkinShip.png")]
 		private var gfx_PumpkinEnemy:Class;
-		
+		[Embed(source = "../img/Pizza.png")]
+		private var gfx_Pizza:Class;
 		
 		// Animations
 		
@@ -155,6 +156,10 @@ package
 			bmpDat = (new gfx_PumpkinEnemy() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("PumpkinShip.png");
+			
+			bmpDat = (new gfx_Pizza() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Pizza.png");
 			
 			// Animations
 			

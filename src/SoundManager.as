@@ -43,6 +43,15 @@ package
 		[Embed(source="../snd/mp3/enemyship_blowup.mp3")]
 		private var snd_EnemyDeath:Class;
 		
+		// Boss Explosion Sounds
+		[Embed(source = "../snd/mp3/boss_explode_startfreq.mp3")]
+		private var snd_BossExplodeStartFreq:Class;
+		[Embed(source = "../snd/mp3/boss_explode_med.mp3")]
+		private var snd_BossExplodeMed:Class;
+		[Embed(source = "../snd/mp3/boss_explode_frequent.mp3")]
+		private var snd_BossExplodeFrequent:Class;
+		[Embed(source = "../snd/mp3/boss_explode_end.mp3")]
+		private var snd_BossExplodeEnd:Class;
 		
 		// Music
 		[Embed(source = "../snd/mp3/music.mp3")]
@@ -90,6 +99,22 @@ package
 			sndDat = (new snd_Music() as Sound);
 			soundDataList.push(sndDat);
 			soundKeywords.push("music.mp3");
+			
+			sndDat = (new snd_BossExplodeStartFreq() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("boss_explode_startfreq.mp3");
+			
+			sndDat = (new snd_BossExplodeMed() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("boss_explode_med.mp3");
+			
+			sndDat = (new snd_BossExplodeFrequent() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("boss_explode_frequent.mp3");
+			
+			sndDat = (new snd_BossExplodeEnd() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("boss_explode_end.mp3");
 			
 			
 			
