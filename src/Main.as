@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -163,7 +164,12 @@ package
 		
 		private function Update(e:Event = null):void
 		{
-			
+			// Shock-pause on boss death
+			if (Globals.vars.ShockPause > 0)
+			{
+				Globals.vars.ShockPause--;
+				return;
+			}
 			// Check for player death.
 			if (playerDamage.Dead)
 			{

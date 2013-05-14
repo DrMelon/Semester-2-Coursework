@@ -38,7 +38,7 @@ package Defines
 		
 		public function InitWeapons(theHUD:HUD):void
 		{
-			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 500);
+			mustardBullet = new Bullet("MustardSplot.png", 4, 0, 5);
 			mustardWeapon = new Weapon(mustardBullet, 10, 0, "fire_mustard.mp3");
 			
 			

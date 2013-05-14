@@ -3,6 +3,7 @@ package
 	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
 	import Subsystems.ShowAnimation;
 	
 	/**
@@ -16,6 +17,9 @@ package
 		public var ExplosionTimer:Number = 0;
 		public var MaxTime:Number = 1500;
 		public var Boss:GameObject;
+		public var Invert:Boolean = false;
+		public var invertTrans:ColorTransform = new ColorTransform( -1, -1, -1, 1, 255, 255, 255, 0);
+		public var normTrans:ColorTransform = new ColorTransform();
 		public function LoadsOfExplosions(_Boss:GameObject) 
 		{
 			Boss = _Boss
@@ -27,7 +31,7 @@ package
 		
 		override public function Update(e:Event = null):void
 		{
-			
+
 			ExplosionTimer++;
 			if (ExplosionTimer >= MaxTime)
 			{
@@ -98,7 +102,9 @@ package
 				if (ExplosionTimer % 24 == 0)
 				{
 					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_med.mp3");
+					Invert = !Invert;
 				}
+				
 			}
 			else if (ExplosionTimer == MaxTime - 1)
 			{
@@ -108,6 +114,7 @@ package
 				var bigex:ShowAnimation = new ShowAnimation(Boss, Globals.vars.Animations.bigexplosion, 2, false);
 				bigex.EndGame = true;
 				Boss.y = -42; // shift up so explosion looks good
+				Invert = false;
 				
 			}
 			else
@@ -116,7 +123,16 @@ package
 			}
 			
 			
-			
+			if (Invert)
+			{
+				// Invert Colours for Shock Effect
+				Boss.transform.colorTransform = invertTrans;
+			}
+			else
+			{
+				// Be Normal
+				Boss.transform.colorTransform = normTrans;
+			}
 		}
 		
 	}

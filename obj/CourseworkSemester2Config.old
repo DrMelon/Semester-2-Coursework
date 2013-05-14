@@ -34,7 +34,7 @@
     <source-path append="true">
       <path-element>E:\University\Media Production\Coursework Semester 2\src</path-element>
       <path-element>E:\University\Media Production\Coursework Semester 2\img</path-element>
-      <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>G:\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
