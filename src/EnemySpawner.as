@@ -21,7 +21,7 @@ package
 		
 		
 		public var SetToGenerate:Number = 0;
-		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 4, 3, 2, 1, 3, 0, 5, 0);
+		public var SetList:Array = new Array(0, 1, 1, 0, 2, 2, 3, 1, 4, 4, 2, 1, 3, 0, 2, 3, 2, 2, 4, 1, 4, 2, 4, 3, 0, 1, 0, 2, 3, 4, 2, 1, 0, 2, 4, 2, 4, 2, 1, 5, 0);
 		public var SetCounter:Number;
 		public var EnemiesInCurrentSet:Array = new Array();
 		public var SetDead:Boolean = false;
@@ -136,7 +136,8 @@ package
 									NumOfEnemiesInSet--;
 									if (NumOfEnemiesInSet < 1)
 									{
-										AddEnemyOnPath(2, 0);
+										// Random pathing
+										AddEnemyOnPath(2, (Math.round(Math.random()*2)));
 									}
 								}
 								if (NumOfEnemiesInSet == 0)
@@ -148,7 +149,7 @@ package
 									CurrentTimeBetweenSets = TimeBetweenSets;
 								}		
 								break;	
-							case 5:
+							case 5: // IT'S THE BOSS!
 								if (NumOfEnemiesInSet > 0)
 								{
 									NumOfEnemiesInSet--;
@@ -228,7 +229,9 @@ package
 					Globals.vars.w_RenderClip.addChild(Globals.vars.theHUD.statusBars[3]);
 					dc.theHUDBar = Globals.vars.theHUD.statusBars[3];
 					dc.Boss = true;
-					// Cutscene Subsystem
+					var af:AutoFireWeapon = new AutoFireWeapon(thisEnemy, Globals.vars.Weapons.danmakuCannonSlot);
+					
+					
 					
 					
 					

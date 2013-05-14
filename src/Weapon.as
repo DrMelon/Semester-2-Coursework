@@ -54,6 +54,7 @@ package
 					var newBullet:Bullet = new Bullet(bulletType.imageID, bulletType.bulletSpeed, bulletType.bulletTeam, bulletType.bulletDamage);
 					newBullet.x = x;
 					newBullet.y = y;
+					newBullet.sine = bulletType.sine;
 					if (rateOfFire < 1)
 					{
 						//add spread to bullets & rotation

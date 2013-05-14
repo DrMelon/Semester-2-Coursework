@@ -17,8 +17,9 @@ package
 		public var bulletDamage:Number;
 		public var damHandler:DamageHandler;
 		public var bulletSpread:Number;
+		public var sine:Boolean = false; // Enable/disable sinewave movements
 		// Team determines bullet direction. Enemies come from the top, so anything on the enemy team comes down the screen.
-		
+		private var framecount:Number;
 		
 		
 		
@@ -38,10 +39,17 @@ package
 			damHandler = new DamageHandler(this, true, false, 0, bulletDamage, bulletTeam); // add damage handler
 			damHandler.DeathSound = "shot_connect.mp3";
 			damHandler.DeathAnimation = Globals.vars.Animations.explosion_small;
+		
+			
 		}
 		
 		override public function Init():void
 		{
+			if (sine == true)
+			{
+				//Random x position
+				x = Math.random() * 320;
+			}
 			if (bulletTeam == 0) // Player
 			{
 				ySpeed = -bulletSpeed;
@@ -79,6 +87,11 @@ package
 			if (rotation != 0)
 			{
 				this.rotation++;
+			}
+			if (sine == true)
+			{
+				var amtToMove:Number = (Math.sin(Globals.vars.framecount / 10) * 6);
+				this.x += amtToMove;
 			}
 			
 			

@@ -35,6 +35,10 @@ package Defines
 		public var enemyPumpkinWeapon:Weapon;
 		public var enemyPumpkinSlot:WeaponSlot;
 		
+		public var danmakuCannonBullet:Bullet;
+		public var danmakuCannonWeapon:Weapon;
+		public var danmakuCannonSlot:WeaponSlot;
+		
 		
 		public function InitWeapons(theHUD:HUD):void
 		{
@@ -51,11 +55,15 @@ package Defines
 			enemyPumpkinBullet = new Bullet("PumpkinSeed.png", 3, 1, 20);
 			enemyPumpkinWeapon = new Weapon(enemyPumpkinBullet, 15, 1, "fire_ketchup.mp3");
 			
+			danmakuCannonBullet = new Bullet("Danmaku.png", 3, 1, 5);
+			danmakuCannonBullet.sine = true;
+			danmakuCannonWeapon = new Weapon(danmakuCannonBullet, 12, 1, "fire_mustard.mp3");
 			
 			mustardSlot = new WeaponSlot(mustardWeapon, theHUD.statusBars[1], 50, 2, true, 20, 0);
 			ketchupSlot = new WeaponSlot(ketchupWeapon, theHUD.statusBars[2], 200, 4, false, 0, 0);
 			chilliSlot = new WeaponSlot(chilliWeapon, theHUD.statusBars[2], 200, 3, false, 0, 0);
 			enemyPumpkinSlot = new WeaponSlot(enemyPumpkinWeapon, null, 999, 999, false, 0, 0);
+			danmakuCannonSlot = new WeaponSlot(danmakuCannonWeapon, null, 999, 999, false, 0, 0);
 			
 			mustardSlot.name = "Mustard";
 			ketchupSlot.name = "Ketchup Lv1";

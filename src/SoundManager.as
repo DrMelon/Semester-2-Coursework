@@ -60,6 +60,8 @@ package
 		private var snd_Music:Class;
 		[Embed(source = "../snd/mp3/VICTORY.mp3")]
 		private var snd_Victory:Class;
+		[Embed(source = "../snd/mp3/gameover.mp3")]
+		private var snd_GameOver:Class;
 		
 		
 		public function SoundManager() 
@@ -108,6 +110,10 @@ package
 			soundDataList.push(sndDat);
 			soundKeywords.push("VICTORY.mp3");
 			
+			sndDat = (new snd_GameOver() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("gameover.mp3");
+			
 			sndDat = (new snd_BossExplodeStartFreq() as Sound);
 			soundDataList.push(sndDat);
 			soundKeywords.push("boss_explode_startfreq.mp3");
@@ -146,7 +152,6 @@ package
 				}
 				else
 				{
-					
 					musicChannel = soundDataList[soundKeywords.indexOf(keyword)].play(0, 999);
 				}
 			}

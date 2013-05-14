@@ -112,7 +112,19 @@ package Subsystems
 				var loads:LoadsOfExplosions = new LoadsOfExplosions(parentObject);
 				Globals.vars.theHUD.statusBars[3].visible = false;
 				Globals.vars.gameObjects.push(loads);
-				
+				// Remove weapons system
+				for (var i:int = 0; i < parentObject.subsystems.length; i++)
+				{
+					if (getQualifiedClassName(parentObject.subsystems[i]) == "Subsystems::AutoFireWeapon")
+					{
+						parentObject.subsystems.splice(i, 1)
+						i--;
+						if (i > parentObject.subsystems.length - 1)
+						{
+							i == parentObject.subsystems.length - 1;
+						}
+					}
+				}				
 				
 				
 				

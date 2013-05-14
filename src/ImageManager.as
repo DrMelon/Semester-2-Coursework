@@ -29,7 +29,8 @@ package
 		private var gfx_FlameParticle:Class;
 		[Embed(source = "../img/PumpkinSeed.png")]
 		private var gfx_PumpkinSeed:Class;
-		
+		[Embed(source = "../img/danmaku.png")]
+		private var gfx_Danmaku:Class;
 		
 		// Powerups
 		[Embed(source = "../img/ChilliPowerupIcon.png")]
@@ -198,17 +199,21 @@ package
 			
 			//Bullets
 			bmpDat = (new gfx_Mustard() as Bitmap).bitmapData;
-			bitmapDataList.push(bmpDat)
+			bitmapDataList.push(bmpDat);
 			imageKeywords.push("MustardSplot.png");
 			bmpDat = (new gfx_Ketchup() as Bitmap).bitmapData;
-			bitmapDataList.push(bmpDat)
+			bitmapDataList.push(bmpDat);
 			imageKeywords.push("KetchupSplot.png");			
 			bmpDat = (new gfx_FlameParticle() as Bitmap).bitmapData;
-			bitmapDataList.push(bmpDat)
+			bitmapDataList.push(bmpDat);
 			imageKeywords.push("FlameParticle.png");						
 			bmpDat = (new gfx_PumpkinSeed() as Bitmap).bitmapData;
-			bitmapDataList.push(bmpDat)
-			imageKeywords.push("PumpkinSeed.png");			
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("PumpkinSeed.png");	
+			bmpDat = (new gfx_Danmaku() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Danmaku.png");
+			
 			
 			// Powerups
 			bmpDat = (new gfx_KetchupPowerup() as Bitmap).bitmapData;

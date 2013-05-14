@@ -19,7 +19,11 @@ package
 	public class Main extends Sprite
 	{
 				
-		
+		// TODO: 
+		//  Boss warning
+		//  Scrolling text message system at top of screen
+		//  Controls tutorial
+		//  Health powerup, fix enemy stuff
 		
 		// Set up font and score counter.
 		[Embed(source = "../fnt/Press-Start-K.ttf", 
@@ -63,7 +67,9 @@ package
 			// entry point
 			Globals.vars.theStage = stage;
 			Globals.vars.win = false;
+			Globals.vars.gameover = false;
 			Globals.vars.score = 0;
+			Globals.vars.framecount = 0.0;
 			Globals.vars.g_ImageManager = new ImageManager();
 			Globals.vars.g_SoundManager = new SoundManager();
 			Globals.vars.Animations = new AnimDef();
@@ -144,8 +150,9 @@ package
 			thePlayer.Init();
 			
 			
-			Globals.vars.w_RenderClip.addChild(Globals.vars.theHUD);
+			Globals.vars.w_RenderClip.addChild(Globals.vars.theHUD); // draw hud on top of everything else
 			Globals.vars.theHUD.Draw();
+			
 			
 			
 			
@@ -173,6 +180,19 @@ package
 			// Check for player death.
 			if (playerDamage.Dead)
 			{
+				if (Globals.vars.gameover != true)
+				{
+					Globals.vars.gameover = true;
+					// STOP THE MUSIC
+					Globals.vars.g_SoundManager.musicChannel.stop();
+					// Game over music, shock hit
+					Globals.vars.ShockPause = 30;
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("gameover.mp3");
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("deathsplosion.mp3");
+				}
+			}
+			if (Globals.vars.gameover == true)
+			{
 				//Show game over screen, push button to retry.
 				scoreCounter.text = "GAME OVER";
 				scoreCounter.textColor = 0x0000FF;
@@ -181,8 +201,7 @@ package
 				scoreCounter.scaleX = 3;
 				scoreCounter.scaleY = 3;
 				
-				// STOP THE MUSIC
-				Globals.vars.g_SoundManager.musicChannel.stop();
+				
 			}
 			else if (Globals.vars.win == true)
 			{
@@ -231,7 +250,7 @@ package
 				// And hud
 				scoreCounter.text = "Score: " + Globals.vars.score;
 				Globals.vars.theHUD.Update();
-				
+				Globals.vars.framecount++;
 			}
 			
 			
