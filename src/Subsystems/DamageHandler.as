@@ -1,6 +1,7 @@
 package Subsystems 
 {
 	import flash.events.Event;
+	import flash.geom.ColorTransform;
 	import flash.utils.getQualifiedClassName;
 	import Defines.*;
 	/**
@@ -102,10 +103,35 @@ package Subsystems
 			Dead = true;
 			if (Boss)
 			{
+				// I'd like to make a big BOOM... noise and stop the action for a second before beginning the explosion scene...
+				1
+				Globals.vars.g_SoundManager.PlaySoundByKeyword("deathsplosion.mp3");
+				Globals.vars.g_SoundManager.musicChannel.stop();
+				
+				// Invert Colours for Shock Effect
+				var invertTrans:ColorTransform = new ColorTransform(-1,-1,-1,1,255,255,255,0);
+				
+				Globals.vars.w_RenderClip.transform.colorTransform = invertTrans;
+				
+				
+				//Pause for a split second.
+				Globals.vars.theStage.frameRate = 0.1;
+				for (var i:int = 0; i < 500; i++)
+				{
+					trace("");
+				}
+				
+				// Reset colours
+				Globals.vars.w_RenderClip.transform.colorTransform = new ColorTransform();
+				
+				Globals.vars.theStage.frameRate = 60;
 				// Exploding cutscene start
-				var loads:LoadsOfExplosions = new LoadsOfExplosions();
+				var loads:LoadsOfExplosions = new LoadsOfExplosions(parentObject);
+				Globals.vars.theHUD.statusBars[3].visible = false;
 				Globals.vars.gameObjects.push(loads);
-				trace("LOL YOU WIN");
+				
+				
+				
 				
 				
 			}

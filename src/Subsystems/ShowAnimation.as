@@ -14,6 +14,7 @@ package Subsystems
 		public var CurrentFrame:Number = 0;
 		public var Looping:Boolean;
 		public var FrameCounter:Number = 0;
+		public var EndGame:Boolean = false;
 		public function ShowAnimation(_parent:GameObject, _aframes:Array, _rate:Number, _loop:Boolean) 
 		{
 			super(_parent);
@@ -45,7 +46,10 @@ package Subsystems
 							{
 								
 								parentObject.y = 500; // move offscreen and kill.
-								
+								if (EndGame)
+								{
+									Globals.vars.win = true;
+								}
 								
 							}
 						}

@@ -14,10 +14,11 @@ package
 		//L, O, D, S, OF, S, P, L, O, SHUNS!
 		// WHAT'S THAT SPELL? LOADS OF EXPLOSIONS, PROB'LY.
 		public var ExplosionTimer:Number = 0;
-		public var MaxTime:Number = 5000;
-		
-		public function LoadsOfExplosions() 
+		public var MaxTime:Number = 1500;
+		public var Boss:GameObject;
+		public function LoadsOfExplosions(_Boss:GameObject) 
 		{
+			Boss = _Boss
 			super("explosion_small_1.png");
 			//stop the music
 			Globals.vars.g_SoundManager.musicChannel.stop();
@@ -34,7 +35,7 @@ package
 			}
 			// Pick a random place and explosion, increasing the number of explosions per frame depending on how close we are to the max time
 			var numOfExplosions:int;
-			numOfExplosions = (ExplosionTimer / MaxTime) * 25;
+			numOfExplosions = (ExplosionTimer / MaxTime) * 8;
 			if (numOfExplosions < 1)
 			{
 				numOfExplosions = 1;
@@ -68,20 +69,50 @@ package
 			// Play sound
 			if (ExplosionTimer < 500)
 			{
-				trace("Single");
-				Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_startfreq.mp3");
+				if (ExplosionTimer % 12 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_startfreq.mp3");
+				}
 			}
-			else if (ExplosionTimer < 1500)
+			else if (ExplosionTimer < 1000)
 			{
-				Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_frequent.mp3");
+				if (ExplosionTimer % 10 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_frequent.mp3");
+				}
+				if (ExplosionTimer % 8 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_startfreq.mp3");
+				}				
 			}
-			else if (ExplosionTimer < 3500)
+			else if (ExplosionTimer < MaxTime - 1)
 			{
-				Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_med.mp3");
+				if (ExplosionTimer % 10 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_frequent.mp3");
+				}				
+				if (ExplosionTimer % 8 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_startfreq.mp3");
+				}
+				if (ExplosionTimer % 24 == 0)
+				{
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_med.mp3");
+				}
 			}
 			else if (ExplosionTimer == MaxTime - 1)
 			{
 				Globals.vars.g_SoundManager.PlaySoundByKeyword("boss_explode_end.mp3");
+				
+				// Add huge explosion
+				var bigex:ShowAnimation = new ShowAnimation(Boss, Globals.vars.Animations.bigexplosion, 2, false);
+				bigex.EndGame = true;
+				Boss.y = -42; // shift up so explosion looks good
+				
+			}
+			else
+			{
+				//None
 			}
 			
 			

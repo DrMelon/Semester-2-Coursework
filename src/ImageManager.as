@@ -103,7 +103,82 @@ package
 		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_11.png")]
 		private var gfx_Explosion16x16_11:Class;
 		[Embed(source="../img/animated/explosion_16x16/explosion_16x16_12.png")]
-		private var gfx_Explosion16x16_12:Class;		
+		private var gfx_Explosion16x16_12:Class;
+		
+		//BigExplosion
+		[Embed(source = "../img/bigexplosion/bigexplosion (1).gif")]
+		private var gfx_BigExplosion_1:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (2).gif")]
+		private var gfx_BigExplosion_2:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (3).gif")]
+		private var gfx_BigExplosion_3:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (4).gif")]
+		private var gfx_BigExplosion_4:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (5).gif")]
+		private var gfx_BigExplosion_5:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (6).gif")]
+		private var gfx_BigExplosion_6:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (7).gif")]
+		private var gfx_BigExplosion_7:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (8).gif")]
+		private var gfx_BigExplosion_8:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (9).gif")]
+		private var gfx_BigExplosion_9:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (10).gif")]
+		private var gfx_BigExplosion_10:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (11).gif")]
+		private var gfx_BigExplosion_11:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (12).gif")]
+		private var gfx_BigExplosion_12:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (13).gif")]
+		private var gfx_BigExplosion_13:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (14).gif")]
+		private var gfx_BigExplosion_14:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (15).gif")]
+		private var gfx_BigExplosion_15:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (16).gif")]
+		private var gfx_BigExplosion_16:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (17).gif")]
+		private var gfx_BigExplosion_17:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (18).gif")]
+		private var gfx_BigExplosion_18:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (19).gif")]
+		private var gfx_BigExplosion_19:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (20).gif")]
+		private var gfx_BigExplosion_20:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (21).gif")]
+		private var gfx_BigExplosion_21:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (22).gif")]
+		private var gfx_BigExplosion_22:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (23).gif")]
+		private var gfx_BigExplosion_23:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (24).gif")]
+		private var gfx_BigExplosion_24:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (25).gif")]
+		private var gfx_BigExplosion_25:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (26).gif")]
+		private var gfx_BigExplosion_26:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (27).gif")]
+		private var gfx_BigExplosion_27:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (28).gif")]
+		private var gfx_BigExplosion_28:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (29).gif")]
+		private var gfx_BigExplosion_29:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (30).gif")]
+		private var gfx_BigExplosion_30:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (31).gif")]
+		private var gfx_BigExplosion_31:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (32).gif")]
+		private var gfx_BigExplosion_32:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (33).gif")]
+		private var gfx_BigExplosion_33:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (34).gif")]
+		private var gfx_BigExplosion_34:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (35).gif")]
+		private var gfx_BigExplosion_35:Class;
+		[Embed(source = "../img/bigexplosion/bigexplosion (36).gif")]
+		private var gfx_BigExplosion_36:Class;
+
 		
 		public function ImageManager() 
 		{
@@ -230,6 +305,150 @@ package
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("explosion_16x16_12.png");	
 			
+			// Big Explosion
+			bmpDat = (new gfx_BigExplosion_1() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (1).gif");
+
+			bmpDat = (new gfx_BigExplosion_2() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (2).gif");
+
+			bmpDat = (new gfx_BigExplosion_3() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (3).gif");
+
+			bmpDat = (new gfx_BigExplosion_4() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (4).gif");
+
+			bmpDat = (new gfx_BigExplosion_5() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (5).gif");
+
+			bmpDat = (new gfx_BigExplosion_6() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (6).gif");
+
+			bmpDat = (new gfx_BigExplosion_7() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (7).gif");
+
+			bmpDat = (new gfx_BigExplosion_8() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (8).gif");
+
+			bmpDat = (new gfx_BigExplosion_9() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (9).gif");
+
+			bmpDat = (new gfx_BigExplosion_10() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (10).gif");
+
+			bmpDat = (new gfx_BigExplosion_11() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (11).gif");
+
+			bmpDat = (new gfx_BigExplosion_12() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (12).gif");
+
+			bmpDat = (new gfx_BigExplosion_13() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (13).gif");
+
+			bmpDat = (new gfx_BigExplosion_14() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (14).gif");
+
+			bmpDat = (new gfx_BigExplosion_15() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (15).gif");
+
+			bmpDat = (new gfx_BigExplosion_16() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (16).gif");
+
+			bmpDat = (new gfx_BigExplosion_17() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (17).gif");
+
+			bmpDat = (new gfx_BigExplosion_18() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (18).gif");
+
+			bmpDat = (new gfx_BigExplosion_19() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (19).gif");
+
+			bmpDat = (new gfx_BigExplosion_20() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (20).gif");
+
+			bmpDat = (new gfx_BigExplosion_21() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (21).gif");
+
+			bmpDat = (new gfx_BigExplosion_22() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (22).gif");
+
+			bmpDat = (new gfx_BigExplosion_23() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (23).gif");
+
+			bmpDat = (new gfx_BigExplosion_24() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (24).gif");
+
+			bmpDat = (new gfx_BigExplosion_25() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (25).gif");
+
+			bmpDat = (new gfx_BigExplosion_26() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (26).gif");
+
+			bmpDat = (new gfx_BigExplosion_27() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (27).gif");
+
+			bmpDat = (new gfx_BigExplosion_28() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (28).gif");
+
+			bmpDat = (new gfx_BigExplosion_29() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (29).gif");
+
+			bmpDat = (new gfx_BigExplosion_30() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (30).gif");
+
+			bmpDat = (new gfx_BigExplosion_31() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (31).gif");
+
+			bmpDat = (new gfx_BigExplosion_32() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (32).gif");
+
+			bmpDat = (new gfx_BigExplosion_33() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (33).gif");
+
+			bmpDat = (new gfx_BigExplosion_34() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (34).gif");
+
+			bmpDat = (new gfx_BigExplosion_35() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (35).gif");
+
+			bmpDat = (new gfx_BigExplosion_36() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("bigexplosion (36).gif");
 		}
 		
 		public function FetchBitmapDataByKeyword(keyword:String):BitmapData

@@ -60,6 +60,8 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.frameRate = 60;
 			// entry point
+			Globals.vars.theStage = stage;
+			Globals.vars.win = false;
 			Globals.vars.score = 0;
 			Globals.vars.g_ImageManager = new ImageManager();
 			Globals.vars.g_SoundManager = new SoundManager();
@@ -68,6 +70,7 @@ package
 			Globals.vars.w_RenderClip = new Sprite(); // Everything renders onto this sprite so I can do 2x scaling
 			Globals.vars.gameObjects = new Array();
 			Globals.vars.theHUD = new HUD();
+			Globals.vars.VictoryMusicPlayed = false;
 			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
@@ -174,6 +177,22 @@ package
 				
 				// STOP THE MUSIC
 				Globals.vars.g_SoundManager.musicChannel.stop();
+			}
+			else if (Globals.vars.win == true)
+			{
+				scoreCounter.text = "YOU ARE HERO\nSCORE: " + Globals.vars.score;
+				scoreCounter.textColor = 0xFFFF00;
+				scoreCounter.x = 10;
+				scoreCounter.y = 120 - 32;
+				scoreCounter.scaleX = 3;
+				scoreCounter.scaleY = 3;
+				
+				// VICTORY MUSIC
+				if(Globals.vars.VictoryMusicPlayed == false)
+				{
+					Globals.vars.VictoryMusicPlayed = true;
+					Globals.vars.g_SoundManager.PlaySoundByKeyword("VICTORY.mp3");
+				}
 			}
 			else
 			{

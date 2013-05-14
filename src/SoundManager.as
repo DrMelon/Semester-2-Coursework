@@ -52,10 +52,14 @@ package
 		private var snd_BossExplodeFrequent:Class;
 		[Embed(source = "../snd/mp3/boss_explode_end.mp3")]
 		private var snd_BossExplodeEnd:Class;
+		[Embed(source = "../snd/mp3/deathsplosion.mp3")]
+		private var snd_Deathsplosion:Class;
 		
 		// Music
 		[Embed(source = "../snd/mp3/music.mp3")]
 		private var snd_Music:Class;
+		[Embed(source = "../snd/mp3/VICTORY.mp3")]
+		private var snd_Victory:Class;
 		
 		
 		public function SoundManager() 
@@ -100,6 +104,10 @@ package
 			soundDataList.push(sndDat);
 			soundKeywords.push("music.mp3");
 			
+			sndDat = (new snd_Victory() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("VICTORY.mp3");
+			
 			sndDat = (new snd_BossExplodeStartFreq() as Sound);
 			soundDataList.push(sndDat);
 			soundKeywords.push("boss_explode_startfreq.mp3");
@@ -116,7 +124,9 @@ package
 			soundDataList.push(sndDat);
 			soundKeywords.push("boss_explode_end.mp3");
 			
-			
+			sndDat = (new snd_Deathsplosion() as Sound);
+			soundDataList.push(sndDat);
+			soundKeywords.push("deathsplosion.mp3");
 			
 			soundChannel.soundTransform = soundTransform;
 		}
