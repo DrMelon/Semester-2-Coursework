@@ -16,6 +16,15 @@ package
 		// Note - Most of these images will be spritesheets. Animated GameObjects also have a reference to an AnimationManager where all the animations
 		// from the spritesheets are defined. The AnimationManager manages frame timings etc.
 		
+		// Instructions & intro card
+		[Embed(source = "../img/Briefing.png")]
+		private var gfx_Briefing:Class;
+		[Embed(source = "../img/controls.png")]
+		private var gfx_Controls:Class;
+		[Embed(source = "../img/Warning.png")]
+		private var gfx_Warning:Class;
+		
+		
 		// Player's Spaceship
 		[Embed(source = "../img/Ship.png")]
 		private var gfx_Ship:Class;
@@ -197,6 +206,16 @@ package
 			bitmapDataList.push(bmpDat); // Put Image Data onto List
 			imageKeywords.push("Ship.png"); // Put Keyword in List
 			
+			bmpDat = (new gfx_Briefing() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Briefing.png");
+			bmpDat = (new gfx_Controls() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Controls.png");
+			bmpDat = (new gfx_Warning() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("Warning.png");
+			
 			//Bullets
 			bmpDat = (new gfx_Mustard() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
@@ -223,6 +242,10 @@ package
 			bmpDat = (new gfx_ChilliPowerup() as Bitmap).bitmapData;
 			bitmapDataList.push(bmpDat);
 			imageKeywords.push("ChilliPowerup.png");
+			
+			bmpDat = (new gfx_HeartPowerup() as Bitmap).bitmapData;
+			bitmapDataList.push(bmpDat);
+			imageKeywords.push("HeartPowerup.png");
 			
 			
 			

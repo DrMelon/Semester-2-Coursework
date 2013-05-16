@@ -58,10 +58,16 @@ package
 						thePowerup.Init();
 						Globals.vars.gameObjects.push(thePowerup);
 						Globals.vars.w_RenderClip.addChild(thePowerup);
-						break;						
+						break;		
+					case 2:
+						var thePowerup:Powerup = new Powerup("HeartPowerup.png", PowerupToGenerate, thePlayer);
+						thePowerup.Init();
+						Globals.vars.gameObjects.push(thePowerup);
+						Globals.vars.w_RenderClip.addChild(thePowerup);
+						break;								
 				}
 				
-				PowerupToGenerate = Math.round(Math.random());
+				PowerupToGenerate = Math.round(Math.random()*2);
 				trace(PowerupToGenerate);
 				
 			

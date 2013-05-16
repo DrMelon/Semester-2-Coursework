@@ -14,7 +14,7 @@ package
 	 * ...
 	 * @author J. Brown
 	 */
-	[SWF(backgroundColor="0xFFFFFF",width="640",height="480")]
+	[SWF(backgroundColor="0x506E7B",width="640",height="480")]
 	
 	public class Main extends Sprite
 	{
@@ -51,6 +51,10 @@ package
 		private var thePlayer:GameObject;
 		private var playerDamage:DamageHandler;
 		
+		
+		public var brief:GameObject;
+		public var controls:GameObject;
+		
 		public function Main():void
 		{
 			if (stage)
@@ -78,13 +82,39 @@ package
 			Globals.vars.gameObjects = new Array();
 			Globals.vars.theHUD = new HUD();
 			Globals.vars.VictoryMusicPlayed = false;
+			Globals.vars.gameStarted = false;
+			Globals.vars.beginGame = false;
 			
 			// Set up stage scaling
 			stage.scaleMode = StageScaleMode.EXACT_FIT;
 			
 			// Load Graphics into Image Manager
 			Globals.vars.g_ImageManager.Load();
+			// Load Animations
+			Globals.vars.Animations.InitAnims();
+
 			
+			// Render at 2x Size
+			Globals.vars.w_RenderClip.scaleX = 2;
+			Globals.vars.w_RenderClip.scaleY = 2;
+			addChild(Globals.vars.w_RenderClip);
+			
+			// Load Intro & Instructions, play intro music
+			brief = new GameObject("Briefing.png");
+			brief.Init();
+			controls = new GameObject("Controls.png");
+			var bgngame:GameStartWait = new GameStartWait(controls, stage);
+			controls.Init();
+			controls.x = 320 - controls.myBitmap.width;
+			controls.y = 240 - controls.myBitmap.height;
+			Globals.vars.w_RenderClip.addChild(brief);
+			Globals.vars.w_RenderClip.addChild(controls);
+		
+		}
+		
+		private function StartGame():void
+		{
+			Globals.vars.gameStarted = true;
 			// Set up HUD
 			Globals.vars.theHUD.y = 240 - 26;
 			Globals.vars.theHUD.AddNewStatusBar(50, 50, 0xFF0000);
@@ -100,10 +130,10 @@ package
 			scoreCounter.text = "Score: 0";
 			
 			
-			// Load Animations
-			Globals.vars.Animations.InitAnims();
 			// Initialize Weapons
-			Globals.vars.Weapons.InitWeapons(Globals.vars.theHUD);			
+			Globals.vars.Weapons.InitWeapons(Globals.vars.theHUD);					
+			
+	
 			
 			// Add scrolling background
 			scrollingBack = new ScrollingBackground();
@@ -156,21 +186,36 @@ package
 			
 			
 			
-			// Render at 2x Size
-			Globals.vars.w_RenderClip.scaleX = 2;
-			Globals.vars.w_RenderClip.scaleY = 2;
+
 			
 			Globals.vars.w_RenderClip.addChild(scoreCounter);
-			addChild(Globals.vars.w_RenderClip);
+			
 			
 			
 			// Start Playing Music
-			Globals.vars.g_SoundManager.PlaySoundByKeyword("music.mp3");
-		
+			Globals.vars.g_SoundManager.PlaySoundByKeyword("music.mp3");			
 		}
 		
 		private function Update(e:Event = null):void
 		{
+			if (Globals.vars.beginGame == true && Globals.vars.gameStarted == false)
+			{
+
+				//remove controls and brief.
+				brief.y = 1000;
+				controls.y = 1000;
+				Globals.vars.beginGame = false;
+				Globals.vars.g_SoundManager.PlaySoundByKeyword("deathsplosion.mp3");
+				StartGame();
+			}			
+			if (Globals.vars.gameStarted == false)
+			{
+				// Check for keypress 
+				brief.Update(e);
+				controls.Update(e);
+				return;
+			}
+
 			// Shock-pause on boss death
 			if (Globals.vars.ShockPause > 0)
 			{

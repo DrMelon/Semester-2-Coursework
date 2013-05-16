@@ -2,6 +2,7 @@ package
 {
 	import flash.events.Event;
 	import Subsystems.Movement;
+	import flash.utils.getQualifiedClassName;
 	import Defines.WeaponDef;
 	/**
 	 * ...
@@ -162,6 +163,19 @@ package
 						}
 						
 						Globals.vars.Weapons.chilliSlot.HUDRef.barColour = 0xFF7700;
+						
+						collected = true;
+						visible = false;
+						break;
+						
+					case 2: // health powerup
+						for (var i:int = 0; i < player.subsystems.length; i++)
+						{
+							if (getQualifiedClassName(player.subsystems[i]) == "Subsystems::DamageHandler")
+							{
+								player.subsystems[i].Health += 25;
+							}
+						}
 						
 						collected = true;
 						visible = false;

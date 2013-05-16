@@ -231,6 +231,21 @@ package
 					dc.Boss = true;
 					var af:AutoFireWeapon = new AutoFireWeapon(thisEnemy, Globals.vars.Weapons.danmakuCannonSlot);
 					
+					//shock pause & warning display
+					var warnCard:GameObject = new GameObject("Warning.png");
+					warnCard.x = (320 / 2) - warnCard.myBitmap.width;
+					warnCard.y = (240 / 2) - warnCard.myBitmap.height;
+					var mv:Movement = new Movement(warnCard);
+					var pt:FollowPattern = new FollowPattern(warnCard, 5);
+					var p1:Point = new Point(500, (240 / 2) - warnCard.myBitmap.height);
+					var pth:Array = new Array;
+					pth.push(p1);
+					pt.PatternCoordinates = pth;
+					warnCard.Init();
+					Globals.vars.w_RenderClip.addChild(warnCard);
+					Globals.vars.gameObjects.push(warnCard);
+					Globals.vars.ShockPause = 50;
+					
 					
 					
 					
